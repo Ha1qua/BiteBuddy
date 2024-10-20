@@ -67,6 +67,7 @@ function LoginRestaurant() {
     try {
       // POST request, used to send data to the server
       const response = await axios.post(
+        //`http://192.168.1.8:5000${endpoint}`,//my computer ip change accordingly to network
         `http://localhost:5000${endpoint}`,
         formData
       );
