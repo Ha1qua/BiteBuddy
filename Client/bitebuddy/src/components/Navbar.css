@@ -1,0 +1,41 @@
+/* Navbar.css */
+.custom-navbar {
+  background-color: #b8e2d7; /* Change this color to your desired navbar background color */
+}
+.heading {
+  color: #000000 !important; /* Change link color */
+  padding-left: 49px;
+  padding-right: 30px;
+  padding-top: 15px;
+  font-size: x-large;
+  font-style: italic;
+  font-weight: bold;
+  font-family: Open Sans;
+}
+.navbar-brand,
+.nav-link {
+  color: #000000 !important; /* Change link color */
+  padding-left: 49px;
+  font-size: x-large;
+  font-style: italic;
+  font-family: Open Sans;
+  margin-right: 39px;
+}
+
+.navbar-toggler {
+  background-color: #b8e2d7 !important; /* Customize the toggler button */
+  color: #d35400;
+}
+
+.navbar-nav .dropdown-menu {
+  background-color: #f1e5d9 !important; /* Change dropdown background */
+}
+
+.navbar-nav .dropdown-item {
+  color: #ff6b61 !important; /* Change dropdown item color */
+}
+
+.navbar-nav .dropdown-item:focus,
+.navbar-nav .dropdown-item:active {
+  background-color: transparent;
+}

@@ -1,0 +1,124 @@
+/* Home Container */
+.home-container {
+  background-color: #f7f7f7;
+  padding: 30px;
+}
+
+/* Flex Container for Left and Right Sections */
+.container {
+  margin-top: 50px;
+  display: flex;
+  align-items: center; /* Align vertically */
+  justify-content: space-between; /* Space between left and right */
+  height: 80vh; /* Adjusted for better height */
+  padding: 20px;
+  gap: 30px;
+}
+
+/* Left Section Styling */
+.left-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.title {
+  font-size: 3rem;
+  color: #000000;
+  margin-bottom: 10px;
+  font-weight: bolder;
+}
+
+.brand {
+  color: #d35400;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  color: #2f2e2e;
+}
+
+/* Right Section Styling */
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+/* About Container Styling */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* Styling for Individual Sections */
+.about-section {
+  max-width: 800px;
+  margin: 20px 0;
+  text-align: center;
+  background-color: #e4f0cb;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+}
+
+/* Heading Styles */
+.about-section h2 {
+  font-size: 2.5rem;
+  color: #000000;
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Paragraph Styles */
+.about-section p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #000000;
+}
+
+/* Strong Text Styling */
+.about-section strong {
+  color: #d35400;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+  /* Adjust layout for tablets */
+  .container {
+    flex-direction: column; /* Stack sections vertically */
+    height: auto;
+  }
+  .left-section,
+  .right-section {
+    width: 100%; /* Full width */
+  }
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Adjust layout for mobile */
+  .title {
+    font-size: 2rem;
+  }
+  .tagline {
+    font-size: 1rem;
+  }
+  .about-section h2 {
+    font-size: 2rem;
+  }
+  .about-section p {
+    font-size: 1rem;
+  }
+}
