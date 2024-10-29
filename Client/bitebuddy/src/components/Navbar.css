@@ -32,7 +32,7 @@
 }
 
 .navbar-nav .dropdown-item {
-  color: #ff6b61 !important; /* Change dropdown item color */
+  color: #000000 !important; /* Change dropdown item color */
 }
 
 .navbar-nav .dropdown-item:focus,

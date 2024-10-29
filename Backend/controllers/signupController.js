@@ -1,5 +1,4 @@
-const db = require("../services/db");
-const bcrypt = require("bcrypt");
+const User = require("../models/User"); // Import the User class
 
 // User Registration (Sign Up)
 const signUp = async (req, res) => {
@@ -7,23 +6,19 @@ const signUp = async (req, res) => {
     req.body;
 
   try {
-    // Hash the password before storing
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Insert the data into 'restaurant_reg' table
-    const query = `
-      INSERT INTO restaurant_reg (email, password, restaurantName, ownerName, address, phoneNumber)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
-    await db.query(query, [
+    // Create a new User instance
+    const user = new User(
       email,
-      hashedPassword,
+      password,
       restaurantName,
       ownerName,
       address,
-      phoneNumber,
-    ]);
+      phoneNumber
+    );
+
+    // Hash the password and save the user
+    await user.hashPassword(); // Hashes the password
+    await user.save(); // Saves the user to the database
 
     res.status(201).json({ message: "Restaurant registered successfully!" });
   } catch (error) {
@@ -33,5 +28,4 @@ const signUp = async (req, res) => {
       .json({ error: "Registration failed. Email may already be registered." });
   }
 };
-
 module.exports = { signUp };

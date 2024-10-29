@@ -31,7 +31,12 @@ const login = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ message: "Login successful!", token });
+    // Respond with message, token, and restaurant ID
+    res.json({
+      message: "Login successful!",
+      token,
+      restaurantId: user.id, // Assuming user.id is the restaurant ID
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Login failed. Please try again." });

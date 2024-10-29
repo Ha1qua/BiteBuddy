@@ -61,18 +61,22 @@ function LoginRestaurant() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form refresh when error occured
+    e.preventDefault(); // Prevent form refresh when error occurred
     const endpoint = isSignUp ? "/auth/signup" : "/auth/login";
 
     try {
-      // POST request, used to send data to the server
+      // POST request to send data to the server
       const response = await axios.post(
-        //`http://192.168.1.8:5000${endpoint}`,//my computer ip change accordingly to network
         `http://localhost:5000${endpoint}`,
         formData
       );
       alert(isSignUp ? "Signup successful!" : "Login successful!");
       console.log(response.data);
+
+      // Check if the response contains restaurantId and store it
+      if (response.data.restaurantId) {
+        localStorage.setItem("restaurantId", response.data.restaurantId); // Store restaurant ID
+      }
 
       // Clear the form fields after success
       setFormData({
@@ -85,13 +89,16 @@ function LoginRestaurant() {
         phoneNumber: "",
       });
       if (!isSignUp) {
-        navigate("/dashboard");
+        navigate("/dashboard"); // Navigate to dashboard after login
       }
     } catch (error) {
       console.error(error);
-      alert(error);
+      alert(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
     }
   };
+
   useEffect(() => {
     setErrors(validateForm());
   }, [formData]);

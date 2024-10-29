@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import LoginRestaurant from "./components/LoginRestaurant";
 import Home from "./components/Home";
 import Dashboard from "./components/Dasboard";
+import RestaurantUser from "./components/RestaurantUser";
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         {/* <Route path="/login-user" element={<LoginUser />} /> */}
         <Route path="/login-restaurant" element={<LoginRestaurant />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/restaurant-user" element={<RestaurantUser />} />
+
         {/* Add more routes as needed */}
       </Routes>
     </Router>

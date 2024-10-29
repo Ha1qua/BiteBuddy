@@ -24,7 +24,7 @@ class User {
 
   async save() {
     const query = `
-      INSERT INTO users (email, password, restaurantName, ownerName, address, phoneNumber) 
+      INSERT INTO restaurant_reg (email, password, restaurantName, ownerName, address, phoneNumber) 
       VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [
@@ -35,13 +35,18 @@ class User {
       this.address,
       this.phoneNumber,
     ];
-    await db.execute(query, values);
+
+    const [result] = await db.execute(query, values);
+
+    // Return the generated ID
+    return result.insertId; // Assuming you're using MySQL and this is the way to get the last inserted ID
   }
 
   static async findByEmail(email) {
-    const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
+    const [rows] = await db.execute(
+      "SELECT * FROM restaurant_reg WHERE email = ?",
+      [email]
+    );
     return rows[0];
   }
 

@@ -1,0 +1,151 @@
+/* RestaurantUser.css */
+
+/* General Styles */
+.restaurant-user-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Keep this to center items horizontally */
+  justify-content: flex-start; /* Align items to the top */
+  width: 990px; /* Set a fixed width for the box */
+  height: 900px; /* Set a fixed height for the box */
+  padding-top: 20px; /* Adjust padding as needed */
+  margin-top: 40px;
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  margin-bottom: 40px;
+  background-color: #e7e9e8;
+  text-align: center;
+  position: relative; /* Ensure we can position the border effect */
+  animation: lightningEffect 2s infinite; /* Apply the animation */
+  border-radius: 10px; /* Add some rounding to the corners */
+}
+
+/* Keyframes for the Lightning Effect */
+@keyframes lightningEffect {
+  0% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(88, 193, 69, 0.5); /* Initial greenish glow */
+  }
+  25% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 12px rgba(128, 128, 255, 0.5),
+      0 0 15px rgba(43, 23, 194, 0.5); /* Light blue and deep blue glow */
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(43, 23, 194, 0.7),
+      0 0 20px rgba(147, 100, 197, 0.5); /* Brighter blue and purple glow */
+  }
+  75% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 12px rgba(239, 63, 169, 0.6),
+      0 0 18px rgba(88, 193, 69, 0.5); /* Light pink and greenish glow */
+  }
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(239, 63, 169, 0.5); /* Final pinkish glow */
+  }
+}
+
+/* Headings and Paragraph */
+.restaurant-user-container h1 {
+  font-size: 2rem; /* Adjusted font size */
+  margin-bottom: 10px; /* Adjusted margin */
+  color: #978be9;
+  font-weight: bold;
+}
+
+.restaurant-user-container p {
+  font-size: 1rem; /* Adjusted font size */
+  color: #000000;
+  margin: 0;
+}
+.button-row {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center buttons in the row */
+  gap: 10px; /* Space between elements */
+  margin-top: 20px; /* Space above the button row */
+}
+/* Button Styles */
+.menu-button,
+.view-cart-button,
+.ok-button {
+  padding: 10px 20px; /* Add padding for better button size */
+  background-color: #b8b0f1; /* Background color */
+  color: rgb(0, 0, 0); /* Text color */
+  font-weight: bold;
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.menu-button:hover,
+.view-cart-button:hover,
+.ok-button:hover {
+  background-color: #988ee4; /* Darker shade on hover */
+}
+.cart-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.cart-item img {
+  margin-right: 10px; /* Space between image and text */
+}
+
+button {
+  margin-left: 10px; /* Space between quantity button and text */
+}
+
+/* Input Field Styles */
+.table-number-input {
+  padding: 10px; /* Padding for input */
+  border: 1px solid #ccc; /* Border for input */
+  border-radius: 5px; /* Rounded corners */
+  width: 150px; /* Set a fixed width for the input */
+  margin-left: 10px; /* Space between input and buttons */
+}
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Responsive Design for Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .restaurant-user-container {
+    width: 350px; /* Slightly larger for tablets */
+    height: 220px; /* Slightly larger for tablets */
+    padding: 25px; /* Adjust padding */
+  }
+
+  .restaurant-user-container h1 {
+    font-size: 1.8rem; /* Adjusted font size for tablets */
+  }
+
+  .restaurant-user-container p {
+    font-size: 1.1rem; /* Adjusted font size for tablets */
+  }
+}
+
+/* Responsive Design for Mobile Phones */
+@media (max-width: 767px) {
+  .restaurant-user-container {
+    width: 80%; /* Responsive width for mobile */
+    height: auto; /* Auto height for flexibility */
+    padding: 15px;
+  }
+
+  .restaurant-user-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .restaurant-user-container p {
+    font-size: 0.9rem;
+  }
+}
