@@ -20,6 +20,11 @@ function Dashboard() {
     restaurant_id: "",
   });
 
+  const [errors, setErrors] = useState({
+    dishName: "",
+    ingredients: "",
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,9 +50,8 @@ function Dashboard() {
 
   const fetchRestaurantName = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/dishes/${id}`);
-      const data = await response.json();
-      console.log("Restaurant Name:", data.name); // Check this in console
+      const response = await axios.get(`http://localhost:5000/dishes/${id}`);
+      const data = response.data;
       setRestaurantName(data.name);
     } catch (error) {
       console.error("Error fetching restaurant name:", error);
@@ -82,12 +86,10 @@ function Dashboard() {
           axios.delete(`http://localhost:5000/dishes/${dishId}`)
         )
       );
-      alert("Dishes deleted successfully!");
       setSelectedDishes([]);
       fetchDishes(restaurantId);
     } catch (error) {
       console.error("Error deleting dishes:", error);
-      alert("Failed to delete dishes.");
     }
   };
 
@@ -108,20 +110,27 @@ function Dashboard() {
     setIsFormOpen(true);
   };
 
+  const validateForm = () => {
+    const errors = {};
+    const dishNamePattern = /^[A-Za-z_]+$/;
+    const ingredientsPattern = /^[A-Za-z\s,]+$/;
+
+    if (!dishNamePattern.test(newDish.dishName)) {
+      errors.dishName = "Dish name must contain only letters and underscores.";
+    }
+    if (!ingredientsPattern.test(newDish.ingredients)) {
+      errors.ingredients =
+        "Ingredients must contain only letters, spaces, and commas.";
+    }
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleAddDish = async (e) => {
     e.preventDefault();
 
-    const dishNamePattern = /^[A-Za-z_]+$/;
-    const ingredientsPattern = /^[A-Za-z\s]+$/;
-
-    if (!dishNamePattern.test(newDish.dishName)) {
-      alert("Dish name must contain only letters and underscores.");
-      return;
-    }
-    if (!ingredientsPattern.test(newDish.ingredients)) {
-      alert("Ingredients must contain only letters and spaces.");
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
       if (dishToUpdate) {
@@ -129,11 +138,8 @@ function Dashboard() {
           `http://localhost:5000/dishes/${dishToUpdate.id}`,
           newDish
         );
-        alert("Dish updated successfully!");
-        setDishToUpdate(null);
       } else {
         await axios.post("http://localhost:5000/dishes", newDish);
-        alert("Dish added successfully!");
       }
 
       setNewDish({
@@ -144,11 +150,14 @@ function Dashboard() {
         restaurant_id: restaurantId,
       });
 
-      setIsFormOpen(false);
+      // Fetch updated list of dishes
       fetchDishes(restaurantId);
+
+      // Close the form
+      setIsFormOpen(false);
+      setDishToUpdate(null);
     } catch (error) {
       console.error("Error adding/updating dish:", error);
-      alert("Failed to add/update dish.");
     }
   };
 
@@ -159,7 +168,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <h1 className="dasbhead">
-        Glad to see you, {restaurantName}! Manage everything from here.
+        Glad to see you {restaurantName}! Manage everything from here
       </h1>
 
       <div className="button-box">
@@ -187,6 +196,7 @@ function Dashboard() {
               required
             />
           </label>
+          {errors.dishName && <p className="error">{errors.dishName}</p>}
           <label>
             Price:
             <input
@@ -206,6 +216,7 @@ function Dashboard() {
               required
             />
           </label>
+          {errors.ingredients && <p className="error">{errors.ingredients}</p>}
           <label>
             Image URL:
             <input

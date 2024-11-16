@@ -1,52 +1,57 @@
-/* Dashboard.css */
-
+/* Dashboard Container */
 .dashboard-container {
   padding: 20px;
   font-family: Open Sans;
   font-style: italic;
   font-weight: bold;
+  position: relative; /* Make sure relative positioning is applied for absolute elements inside */
 }
+
+/* Heading Style */
 .dasbhead {
   color: #978be9;
   text-align: center;
   font-weight: bold;
-}
-h1 {
-  font-size: 2rem;
+  font-size: 2rem; /* Adjust font size if needed */
 }
 
 /* Button Box Styling */
 .button-box {
   display: flex;
-  flex-direction: column; /* Arrange buttons vertically */
-  align-items: center; /* Center buttons within the box */
-  gap: 15px;
-  margin-top: 70px;
-  width: 200px;
-  text-align: center;
-  position: absolute;
-  right: 20px; /* Distance from the right edge */
-}
-.add {
-  width: 200px;
-  margin-left: 390px; /* Horizontal centering */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  background-color: #e8e6f8;
-  border: 1px solid #d35400;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 20px; /* Space between buttons */
+  margin-top: 20px; /* Move buttons to the top */
+  width: 100%; /* Take full width */
+  position: static; /* Fix buttons at the top */
+  top: 20px; /* 20px distance from the top */
 }
 
 .button-box button {
   background-color: #e8e6f8;
-  width: 140px; /* Fixed width for all buttons */
-  /* Optionally, you can also set height or other styles */
-  border: 1px solid #d35400;
+  width: 140px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 2px solid #d35400;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
-/* Form Styling */
+
+.button-box button:hover {
+  background-color: #d35400;
+  color: #fff;
+  transform: translateY(-4px);
+}
+
+.button-box button:active {
+  transform: translateY(2px);
+}
+
 .dish-form {
-  margin-top: 20px;
+  margin-top: 30px; /* Space from the top */
+  margin-left: 310px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
@@ -54,33 +59,41 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%; /* Full width for form */
+  max-width: 600px; /* Maximum width for form */
+  align-self: center;
 }
 
 .dish-form input,
 .dish-form textarea {
-  width: 80%; /* Reduced width */
-  padding: 8px; /* Reduced padding */
+  width: 100%; /* Ensure input fields span entire form */
+  padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
-  font-size: 14px; /* Slightly smaller font size */
-  /* text-align: center; Center horizontally */
-
-  /* Center text vertically */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 35px; /* Adjust height as needed */
+  font-size: 14px;
 }
+
+.dish-form label {
+  font-size: 16px;
+}
+
 .a {
   font-weight: bolder;
 }
+
 .edit {
+  background-color: #b8b0f1;
+  border: 1px solid #d35400;
+}
+.add {
+  width: 100px;
+  align-self: center;
   background-color: #b8b0f1;
   border: 1px solid #d35400;
 }
 .del {
   width: 200px;
-  margin-left: 390px; /* Horizontal centering */
+  margin-left: 390px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,14 +101,17 @@ h1 {
   background-color: #e8e6f8;
   margin-top: 34px;
   border: 1px solid #d35400;
+  cursor: pointer;
 }
+
 /* Dish List Styling */
 .dish-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   margin-top: 30px;
-  width: 950px;
+  margin-left: 40px;
+  width: 100%;
 }
 
 .dish-item {
@@ -109,6 +125,9 @@ h1 {
 
 .dish-item img {
   width: 80%;
-  height: 50%;
+  height: 40%;
   border-radius: 10px;
+}
+.error {
+  color: red;
 }

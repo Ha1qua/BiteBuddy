@@ -87,33 +87,92 @@
   align-items: center; /* Align items vertically */
 }
 
+.cart-items {
+  margin-top: 20px;
+  padding: 15px;
+  background: #dfddf5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.dish-item .cartb {
+  background-color: #b8b0f1;
+  border: 1px solid #d35400;
+  margin-top: 15px;
+}
+
+.cart-items h2 {
+  font-size: 1.8rem;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #cbd5e0;
+}
+
+.cart-item h3 {
+  font-size: 1.2rem;
+  color: #2d3748;
+  flex: 1;
+}
+
 .cart-item img {
-  margin-right: 10px; /* Space between image and text */
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
-button {
-  margin-left: 10px; /* Space between quantity button and text */
-}
-
-/* Input Field Styles */
-.table-number-input {
-  padding: 10px; /* Padding for input */
-  border: 1px solid #ccc; /* Border for input */
-  border-radius: 5px; /* Rounded corners */
-  width: 150px; /* Set a fixed width for the input */
-  margin-left: 10px; /* Space between input and buttons */
-}
 .quantity-control {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .quantity-control button {
-  width: 30px;
-  height: 30px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: balck;
+  background-color: #b8b0f1;
+  border: 1px solid #d35400;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quantity-control button:hover {
+  background-color: #aea5f8;
+}
+
+.quantity-control span {
+  font-size: 1rem;
+  color: #000000;
+}
+.delete-button {
+  background: none;
+  border: 2px solid #d35400;
+  margin-left: 3px;
   font-size: 20px;
   cursor: pointer;
+}
+.order-more-message {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #006994; /* Choose a color that matches the theme */
+}
+.confirm-order-button {
+  margin-left: 400px;
+  margin-top: 5px;
+  background-color: #b8b0f1;
+  border: 2px solid #d35400;
 }
 
 /* Responsive Design for Tablets */
