@@ -109,20 +109,6 @@ h1 {
 
 .dish-item img {
   width: 80%;
-  height: 60%;
+  height: 50%;
   border-radius: 10px;
-}
-
-@media (max-width: 600px) {
-  /* Adjust styles for mobile screens */
-  .button-box {
-    position: absolute; /* Ensure it can be positioned */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust for exact center */
-    margin-top: 80; /* Remove margin-top */
-    width: 150px; /* Optionally reduce width for smaller screens */
-    padding-left: 0; /* Remove left padding for centering */
-    padding-right: 0; /* Add this if needed to avoid extra space */
-  }
 }

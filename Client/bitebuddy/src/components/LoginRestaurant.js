@@ -26,7 +26,7 @@ function LoginRestaurant() {
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = "abc@gmail.com";
     }
 
     if (formData.restaurantName.length < 7) {
@@ -42,10 +42,11 @@ function LoginRestaurant() {
       newErrors.address = "Address must be at least 10 characters";
     }
 
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if (!passwordPattern.test(formData.password)) {
       newErrors.password =
-        "Password must contain letters, numbers, special symbols, and be at least 8 characters";
+        "Password must contain capital & small letters, numbers, special symbols, and be at least 8 characters";
     }
 
     if (isSignUp && formData.password !== formData.confirmPassword) {
