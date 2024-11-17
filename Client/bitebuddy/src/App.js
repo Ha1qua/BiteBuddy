@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Dashboard from "./components/Dasboard";
 import RestaurantUser from "./components/RestaurantUser";
 import Message from "./components/Message";
+import Chef from "./components/Chef";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/restaurant-user" element={<RestaurantUser />} />
         <Route path="/message" element={<Message />} />
+        <Route path="/chef" element={<Chef />} />
 
         {/* Add more routes as needed */}
       </Routes>

@@ -106,21 +106,72 @@ function RestaurantUser() {
     );
   };
 
-  const confirmOrder = () => {
+  const confirmOrder = async () => {
+    // Step 1: Check if table number is provided
     if (!tableNumber) {
       setErrorMessage("Table number is required to confirm the order.");
       return;
     }
 
-    // Proceed with the order confirmation logic
-    console.log("Order confirmed for table number:", tableNumber);
-    console.log("Order details:", cartItems);
+    try {
+      // Step 2: Retrieve restaurantId and prepare the orderData
+      const restaurantId = localStorage.getItem("restaurantId"); // Retrieve the restaurant ID
+      console.log("Restaurant ID:", restaurantId); // Log restaurant ID to ensure it's correct
 
-    // After confirming the order, navigate to the Message page
-    navigate("/message"); // This redirects to the Message page
+      // Check if localStorage item is valid
+      if (!restaurantId) {
+        console.error("Restaurant ID not found in localStorage.");
+        alert("Restaurant ID is missing.");
+        return;
+      }
 
-    // Optionally, clear the cart after redirect
-    setCartItems([]);
+      // Prepare the order data
+      const orderData = {
+        restaurantId,
+        tableNumber,
+        cartItems,
+        totalPrice: calculateTotalPrice(),
+      };
+
+      // Log the order data to verify
+      console.log("Order data to send:", orderData);
+
+      // Step 3: Send the POST request
+      const response = await axios.post(
+        "http://localhost:5000/api/orders/saveOrder",
+        orderData
+      );
+
+      // Step 4: Check the response status
+      if (response.status === 200) {
+        console.log("Order confirmed and saved:", response.data);
+        navigate("/message"); // Redirect to message page
+        setCartItems([]); // Clear the cart after order is saved
+      } else {
+        console.error(
+          "Failed to confirm the orderwala. Response status:",
+          response.status
+        );
+        alert("Failed to confirm the order.haiqua");
+      }
+    } catch (error) {
+      // Step 5: Catch any errors and log detailed information
+      console.error("Error confirming order:", error);
+
+      // Check if error.response exists (for server-side errors)
+      if (error.response) {
+        console.error("Error response from server:", error.response);
+        alert(
+          `Failed to confirm the orderfahasd. Server responded with: ${error.response.status}`
+        );
+      } else if (error.request) {
+        console.error("No response received from server:", error.request);
+        alert("No response from the server. Please try again later.");
+      } else {
+        console.error("Error in setting up the request:", error.message);
+        alert("Failed to confirm the order. Please try again.");
+      }
+    }
   };
 
   return (

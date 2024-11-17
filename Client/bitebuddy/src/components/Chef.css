@@ -1,0 +1,53 @@
+.chef-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+.chef-orders,
+.chef-messages {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chef-orders {
+  margin-right: 10px;
+}
+
+.chef-messages {
+  margin-left: 10px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.orders-table th {
+  background-color: #343a40;
+  color: white;
+}
+
+.messages {
+  margin-top: 20px;
+}
+
+.messages p {
+  background-color: #dff9fb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
