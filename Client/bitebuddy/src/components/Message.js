@@ -1,15 +1,14 @@
 import React from "react";
 
-function Message() {
+const Message = ({ message }) => {
+  console.log("Received message:", message); // Add this line to debug
+
   return (
     <div>
-      <h2>Order Confirmed!</h2>
-      <p>
-        Thank you for your order! We are processing it and will notify you
-        shortly.
-      </p>
+      <h1>Messages</h1>
+      <div>{message ? <p>{message}</p> : <p>No messages yet.</p>}</div>
     </div>
   );
-}
+};
 
 export default Message;
