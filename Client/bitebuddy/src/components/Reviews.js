@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import "./Review.css"; // Import your regular CSS file
 
 function Review() {
   const location = useLocation();
@@ -86,7 +87,9 @@ function Review() {
           </label>
         </div>
       ))}
-      <button onClick={handleSubmit}>Submit Reviews</button>
+      <button className="review-button" onClick={handleSubmit}>
+        Submit Reviews
+      </button>
     </div>
   );
 }
