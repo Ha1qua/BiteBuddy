@@ -3,38 +3,37 @@ const { createReview, getAllReviews } = require("../models/foodReviewModel");
 const addReview = async (req, res) => {
   const { reviews } = req.body;
 
+  // Validation
   if (!reviews || !Array.isArray(reviews) || reviews.length === 0) {
     return res.status(400).json({ message: "Reviews array is required!" });
   }
 
-  const errors = [];
-  const successes = [];
-
-  await Promise.all(
-    reviews.map(async ({ foodName, review }) => {
-      if (!foodName || !review) {
-        errors.push({
-          foodName,
-          message: "Food name and review are required!",
-        });
-        return;
-      }
-
-      try {
-        await createReview(foodName, review);
-        successes.push({ foodName, message: "Review added successfully!" });
-      } catch (error) {
-        console.error(`Error adding review for ${foodName}:`, error);
-        errors.push({ foodName, message: "Error adding review!" });
-      }
-    })
-  );
-
-  if (errors.length > 0) {
-    return res.status(207).json({ successes, errors });
+  for (const { foodName, review, rating } of reviews) {
+    if (!foodName || !review) {
+      return res
+        .status(400)
+        .json({ message: "Food name and review are required!" });
+    }
+    if (typeof rating !== "number" || rating < 1 || rating > 10) {
+      return res.status(400).json({
+        message: `Rating for ${foodName} must be a number between 1 and 10!`,
+      });
+    }
   }
 
-  res.status(201).json({ message: "All reviews added successfully!" });
+  try {
+    // Insert all reviews concurrently using Promise.all
+    await Promise.all(
+      reviews.map(({ foodName, review, rating }) =>
+        createReview(foodName, review, rating)
+      )
+    );
+
+    res.status(201).json({ message: "Reviews added successfully!" });
+  } catch (error) {
+    console.error("Error adding reviews:", error);
+    res.status(500).json({ message: "Error adding reviews!" });
+  }
 };
 
 const fetchReviews = async (req, res) => {

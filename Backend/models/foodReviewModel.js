@@ -1,14 +1,12 @@
 const db = require("../services/db");
 
 // Create a new review
-const createReview = (foodName, review) => {
+const createReview = (foodName, review, rating) => {
   return new Promise((resolve, reject) => {
-    const query = "INSERT INTO food_reviews (food_name, review) VALUES (?, ?)";
-    db.query(query, [foodName, review], (err, result) => {
-      if (err) {
-        console.error(`Error inserting review for ${foodName}:`, err);
-        return reject(err);
-      }
+    const query =
+      "INSERT INTO food_reviews (food_name, review, rating) VALUES (?, ?, ?)";
+    db.query(query, [foodName, review, rating], (err, result) => {
+      if (err) return reject(err);
       resolve(result);
     });
   });
