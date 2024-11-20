@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-// import "./Review.css";
 
 function Review() {
   const location = useLocation();
@@ -20,11 +19,24 @@ function Review() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/reviews", {
-        reviews,
-      });
-      if (response.status === 200) {
+      const nonEmptyReviews = reviews.filter(
+        (item) => item.review.trim() !== ""
+      );
+      if (nonEmptyReviews.length === 0) {
+        alert("Please write at least one review before submitting!");
+        return;
+      }
+
+      const response = await axios.post(
+        "http://localhost:5000/api/food-reviews",
+        {
+          reviews: nonEmptyReviews,
+        }
+      );
+
+      if (response.status === 201) {
         alert("Reviews submitted successfully!");
+        setReviews(foodNames.map((food) => ({ foodName: food, review: "" }))); // Reset reviews
       } else {
         alert("Failed to submit reviews.");
       }

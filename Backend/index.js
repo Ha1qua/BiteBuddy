@@ -2,19 +2,23 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+// Initialize the Express app
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
+app.use(cors()); // Handle cross-origin requests
+app.use(bodyParser.json()); // Parse JSON request bodies
 
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const dishRoutes = require("./routes/dishRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
-const { scheduleCleanup } = require("./controllers/sessionController");
 const orderRoutes = require("./routes/orderRoutes");
 const chefRoutes = require("./routes/chefRoutes");
+const foodReviewRoutes = require("./routes/foodReviewRoutes"); // New route for food reviews
+
+// Import controllers
+const { scheduleCleanup } = require("./controllers/sessionController");
 
 // Use routes
 app.use("/auth", authRoutes);
@@ -22,6 +26,8 @@ app.use("/dishes", dishRoutes);
 app.use("/api/sessions", sessionRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/chef", chefRoutes);
+app.use("/api/food-reviews", foodReviewRoutes); // Add the new food reviews route
+
 // Start scheduled cleanup for expired sessions
 scheduleCleanup();
 
