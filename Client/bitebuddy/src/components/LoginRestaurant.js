@@ -132,8 +132,10 @@ function LoginRestaurant() {
           />
         </div>
         <div className="text-section">
-          <h2>Welcome to Our Restaurant</h2>
-          <p>Join us and experience the best dining experience in town!</p>
+          <p>
+            Dining made effortless – Skip the wait, embrace the convenience, and
+            let your cravings come to you!
+          </p>
         </div>
       </div>
 

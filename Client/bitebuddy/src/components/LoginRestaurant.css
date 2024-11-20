@@ -1,94 +1,204 @@
+/* Overall Container */
 .login-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
   min-height: 90vh;
   background-color: #ded9da; /* Light background color */
+  padding: 20px; /* Padding for smaller screens */
+  box-sizing: border-box;
 }
 
+/* Left Side (Image and Text) */
 .left-side {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack image and text vertically */
   align-items: center;
   justify-content: center;
-  margin-right: 20px; /* Space between left and form sections */
-  background-color: white;
+  background: linear-gradient(
+    135deg,
+    #d35400,
+    #b8e2d7,
+    #5daf99,
+    #6bf7ed,
+    #d35400
+  ); /* Gradient background */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  max-width: 400px;
+  width: 100%;
+  height: 400px;
+  color: white; /* Text color */
+  text-align: center;
+  margin-right: 0px; /* Space between left and form sections */
+  box-sizing: border-box;
+  animation: fadeIn 1.5s ease-out; /* Entrance animation */
 }
 
+/* Image Section */
 .image-section {
   margin-bottom: 20px;
 }
 
 .login-image {
-  width: 100%; /* Adjust to desired width */
-  max-width: 300px; /* Max width for the image */
+  width: 100%;
+  max-width: 250px;
   border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.text-section {
-  text-align: center;
+/* Text Section */
+.text-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #000000;
 }
 
+/* Form Section */
 .form-section {
   background-color: white;
-  padding: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border-radius: 30px;
-  width: 500px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for better depth */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
+  animation: slideIn 1.5s ease-out; /* Entrance animation */
 }
 
+/* Form Heading */
+.h2 {
+  text-align: center;
+  color: #154916; /* Dark green */
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Form Groups */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
+/* Labels */
 label {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
+  color: #154916;
 }
 
+/* Input Fields */
 input {
-  padding: 10px;
-  border: 1px solid #852323; /* Red border for inputs */
-  border-radius: 5px;
+  padding: 12px 15px;
+  border: 1px solid #852323; /* Red border */
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
 }
 
+input:focus {
+  border-color: #154916; /* Change border color on focus */
+  outline: none;
+}
+
+/* Submit Button */
 .btn {
-  background-color: #154916; /* Green background for buttons */
+  background-color: #154916; /* Green background */
   color: white;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
-}
-
-.h2 {
-  text-align: center; /* Centers the text horizontally */
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
   background-color: #668566; /* Lighter green on hover */
-  color: white;
 }
 
+/* Toggle Prompt */
 .toggle-prompt {
-  margin-top: 15px;
+  margin-top: 20px;
   text-align: center;
+  font-size: 0.95rem;
+  color: #154916;
 }
 
 .toggle-link {
-  color: #024e03; /* Darker green for links */
+  color: #024e03; /* Darker green */
   cursor: pointer;
   text-decoration: underline;
+  margin-left: 5px;
 }
 
-.head {
-  text-align: center;
-  color: #024e03; /* Dark green for heading */
-  font-weight: bold;
-  font-style: italic;
+/* Error Messages */
+.error {
+  color: #e41190;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Required Asterisk */
+.required {
+  color: red;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .login-container {
+    flex-direction: column; /* Stack sections vertically */
+    gap: 30px;
+  }
+
+  .left-side {
+    margin-right: 0; /* Remove right margin */
+  }
+
+  .form-section {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 600px) {
+  .left-side,
+  .form-section {
+    padding: 30px;
+  }
+
+  .h2 {
+    font-size: 1.5rem;
+  }
+
+  .text-section p {
+    font-size: 1rem;
+  }
 }
