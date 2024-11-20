@@ -117,14 +117,28 @@ function LoginRestaurant() {
       }
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || "Enter correct credential");
+      alert(error.response?.data?.message || "Enter correct credentials");
     }
   };
 
   return (
     <div className="login-container">
+      <div className="left-side">
+        <div className="image-section">
+          <img
+            src="loginpic copy.jpeg"
+            alt="Restaurant"
+            className="login-image"
+          />
+        </div>
+        <div className="text-section">
+          <h2>Welcome to Our Restaurant</h2>
+          <p>Join us and experience the best dining experience in town!</p>
+        </div>
+      </div>
+
       <div className="form-section">
-        <h2>{isSignUp ? "Create Your Account" : "Log In"}</h2>
+        <h2 className="h2">{isSignUp ? "Create Your Account" : "Log In"}</h2>
         <form onSubmit={handleSubmit}>
           {isSignUp && (
             <>

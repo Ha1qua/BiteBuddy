@@ -3,19 +3,40 @@
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  background-color: #f7f7f7;
-  /* background-image: url("/Users/haiqua/Desktop/ResturantProject/Client/bitebuddy/public/home copy.png"); 
-  background-size: cover;
-  background-repeat: no-repeat; */
+  background-color: #ded9da; /* Light background color */
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px; /* Space between left and form sections */
+  background-color: white;
+}
+
+.image-section {
+  margin-bottom: 20px;
+}
+
+.login-image {
+  width: 100%; /* Adjust to desired width */
+  max-width: 300px; /* Max width for the image */
+  border-radius: 10px;
+}
+
+.text-section {
+  text-align: center;
 }
 
 .form-section {
-  background-color: #d8eab5;
+  background-color: white;
   padding: 30px;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 30px;
   width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for better depth */
 }
 
 .form-group {
@@ -31,12 +52,12 @@ label {
 
 input {
   padding: 10px;
-  border: 1px solid #852323;
+  border: 1px solid #852323; /* Red border for inputs */
   border-radius: 5px;
 }
 
 .btn {
-  background-color: #154916;
+  background-color: #154916; /* Green background for buttons */
   color: white;
   border: none;
   padding: 10px;
@@ -45,8 +66,12 @@ input {
   width: 100%;
 }
 
+.h2 {
+  text-align: center; /* Centers the text horizontally */
+}
+
 .btn:hover {
-  background-color: #668566;
+  background-color: #668566; /* Lighter green on hover */
   color: white;
 }
 
@@ -56,13 +81,14 @@ input {
 }
 
 .toggle-link {
-  color: #024e03;
+  color: #024e03; /* Darker green for links */
   cursor: pointer;
   text-decoration: underline;
 }
+
 .head {
   text-align: center;
-  color: #024e03;
+  color: #024e03; /* Dark green for heading */
   font-weight: bold;
   font-style: italic;
 }
