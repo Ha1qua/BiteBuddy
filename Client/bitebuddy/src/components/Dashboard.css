@@ -4,36 +4,36 @@
   font-family: Open Sans;
   font-style: italic;
   font-weight: bold;
-  position: relative; /* Make sure relative positioning is applied for absolute elements inside */
+  position: relative;
 }
 
 /* Heading Style */
 .dasbhead {
-  color: #978be9;
+  color: #09a389;
   text-align: center;
   font-weight: bold;
-  font-size: 2rem; /* Adjust font size if needed */
+  font-size: 2rem;
 }
 
 /* Button Box Styling */
 .button-box {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
-  gap: 20px; /* Space between buttons */
-  margin-top: 20px; /* Move buttons to the top */
-  width: 100%; /* Take full width */
-  position: static; /* Fix buttons at the top */
-  top: 20px; /* 20px distance from the top */
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+  position: static;
+  top: 20px;
 }
 
 .button-box button {
-  background-color: #e8e6f8;
+  background-color: #d9e8e8;
+  border: 2px solid #d35400;
   width: 140px;
   height: 50px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 12px;
-  border: 2px solid #d35400;
   cursor: pointer;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -49,24 +49,25 @@
   transform: translateY(2px);
 }
 
+/* Dish Form */
 .dish-form {
-  margin-top: 30px; /* Space from the top */
+  margin-top: 30px;
   margin-left: 310px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #e8f5f5;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(228, 188, 9, 0.1);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%; /* Full width for form */
-  max-width: 600px; /* Maximum width for form */
+  width: 100%;
+  max-width: 600px;
   align-self: center;
 }
 
 .dish-form input,
 .dish-form textarea {
-  width: 100%; /* Ensure input fields span entire form */
+  width: 100%;
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #ccc;
@@ -82,14 +83,14 @@
 }
 
 .edit {
-  background-color: #b8b0f1;
+  background-color: #d9e8e8;
   border: 1px solid #d35400;
 }
 .add {
   width: 100px;
   align-self: center;
-  background-color: #b8b0f1;
-  border: 1px solid #d35400;
+  background-color: #d9e8e8;
+  border: 2px solid #d35400;
 }
 .del {
   width: 200px;
@@ -98,9 +99,9 @@
   justify-content: center;
   align-items: center;
   height: 50px;
-  background-color: #e8e6f8;
   margin-top: 34px;
-  border: 1px solid #d35400;
+  background-color: #d9e8e8;
+  border: 2px solid #d35400;
   cursor: pointer;
 }
 
@@ -110,24 +111,120 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   margin-top: 30px;
-  margin-left: 40px;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding: 0 10px;
 }
 
+/* Dish Item */
 .dish-item {
-  background-color: #e8e6f8;
+  background-color: #d9e8e8;
   border: 2px solid #d35400;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 350px; /* Keep the box height fixed */
+  position: relative; /* Allow positioning of text inside the box */
+  overflow: hidden; /* Prevent overflow of text and images */
 }
 
+/* Dish Item Image */
 .dish-item img {
-  width: 80%;
-  height: 40%;
+  width: 100%;
+  height: 150px; /* Set a fixed height for images */
+  object-fit: cover; /* Ensure images fill the box without distortion */
   border-radius: 10px;
+  margin-bottom: 10px; /* Add some spacing between image and text */
 }
+
+/* Dish Item Title */
+.dish-item h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; /* Prevent long titles from breaking into multiple lines */
+}
+
+/* Dish Item Text Handling */
+.dish-item p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; /* Prevent long descriptions from breaking */
+}
+
+/* Error Message */
 .error {
   color: red;
+}
+
+/* General Small Screen Adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+
+  .dasbhead {
+    font-size: 1.5rem;
+  }
+
+  .button-box {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .button-box button {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .dish-form {
+    margin-left: 0;
+    padding: 15px;
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .dish-form input,
+  .dish-form textarea {
+    font-size: 12px;
+  }
+
+  .dish-form label {
+    font-size: 14px;
+  }
+
+  .dish-list {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    margin-left: 0;
+    gap: 10px;
+  }
+
+  .dish-item {
+    padding: 8px;
+    height: 250px; /* Keep the box height fixed */
+  }
+
+  .dish-item img {
+    height: 150px;
+  }
+
+  .del {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 20px;
+  }
 }
