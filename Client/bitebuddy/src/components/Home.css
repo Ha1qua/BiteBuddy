@@ -1,6 +1,6 @@
 /* Home Container */
 .home-container {
-  background-color: #f7f7f7;
+  background-color: #ffffff; /* Neutral white background */
   padding: 30px;
 }
 
@@ -8,9 +8,9 @@
 .container {
   margin-top: 50px;
   display: flex;
-  align-items: center; /* Align vertically */
-  justify-content: space-between; /* Space between left and right */
-  height: 80vh; /* Adjusted for better height */
+  align-items: center;
+  justify-content: space-between;
+  height: 80vh;
   padding: 20px;
   gap: 30px;
 }
@@ -23,18 +23,18 @@
 
 .title {
   font-size: 3rem;
-  color: #000000;
+  color: #333333; /* Dark gray for better contrast */
   margin-bottom: 10px;
   font-weight: bolder;
 }
 
 .brand {
-  color: #d35400;
+  color: #d35400; /* Orange for branding accent */
 }
 
 .tagline {
   font-size: 1.2rem;
-  color: #2f2e2e;
+  color: #555555; /* Lighter gray text */
 }
 
 /* Right Section Styling */
@@ -65,7 +65,7 @@
   max-width: 800px;
   margin: 20px 0;
   text-align: center;
-  background-color: #e4f0cb;
+  background-color: #e1f2e1; /* Soft greenish background */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 30px;
   border-radius: 15px;
@@ -74,33 +74,31 @@
 /* Heading Styles */
 .about-section h2 {
   font-size: 2.5rem;
-  color: #000000;
+  color: #333333; /* Dark gray for better readability */
   margin-bottom: 10px;
-  font-family: "Poppins", sans-serif;
 }
 
 /* Paragraph Styles */
 .about-section p {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #000000;
+  color: #333333; /* Dark gray text */
 }
 
 /* Strong Text Styling */
 .about-section strong {
-  color: #d35400;
+  color: #d35400; /* Keeping orange for emphasis */
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 992px) {
-  /* Adjust layout for tablets */
   .container {
-    flex-direction: column; /* Stack sections vertically */
+    flex-direction: column;
     height: auto;
   }
   .left-section,
   .right-section {
-    width: 100%; /* Full width */
+    width: 100%;
   }
   .title {
     font-size: 2.5rem;
@@ -108,7 +106,6 @@
 }
 
 @media (max-width: 576px) {
-  /* Adjust layout for mobile */
   .title {
     font-size: 2rem;
   }

@@ -1,7 +1,9 @@
 /* Navbar.css */
 .custom-navbar {
   background-color: #b8e2d7; /* Change this color to your desired navbar background color */
+  border-bottom: 2px solid #2b9276; /* Subtle highlight */
 }
+
 .heading {
   color: #000000 !important; /* Change link color */
   padding-left: 49px;
@@ -10,8 +12,9 @@
   font-size: x-large;
   font-style: italic;
   font-weight: bold;
-  font-family: Open Sans;
+  font-family: "Open Sans", sans-serif;
 }
+
 .navbar-brand,
 .nav-link {
   color: #000000 !important; /* Change link color */
@@ -33,9 +36,28 @@
 
 .navbar-nav .dropdown-item {
   color: #000000 !important; /* Change dropdown item color */
+  transition: background-color 0.3s, color 0.3s ease-in-out;
 }
 
-.navbar-nav .dropdown-item:focus,
-.navbar-nav .dropdown-item:active {
-  background-color: transparent;
+.navbar-nav .dropdown-item:hover {
+  background-color: #b8e2d7;
+  color: #ffffff;
+}
+
+/* Dropdown Item Separator */
+.navbar-nav .dropdown-divider {
+  border-top: 1px solid #b8e2d7;
+}
+
+/* Responsive Font Scaling */
+@media (max-width: 768px) {
+  .nav-link {
+    font-size: 1.5rem; /* Adjust size for smaller screens */
+    /* padding-left: 10px;
+    padding-right: 10px; */
+  }
+
+  .heading {
+    font-size: large; /* Adjust heading size */
+  }
 }
