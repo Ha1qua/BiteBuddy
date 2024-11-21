@@ -13,7 +13,7 @@
   margin-left: auto; /* Center horizontally */
   margin-right: auto; /* Center horizontally */
   margin-bottom: 40px;
-  background-color: #e7e9e8;
+  background-color: #d9e7e3;
   text-align: center;
   position: relative; /* Ensure we can position the border effect */
   animation: lightningEffect 2s infinite; /* Apply the animation */
@@ -22,31 +22,22 @@
 
 /* Keyframes for the Lightning Effect */
 @keyframes lightningEffect {
-  0% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(88, 193, 69, 0.5); /* Initial greenish glow */
-  }
-  25% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 12px rgba(128, 128, 255, 0.5),
-      0 0 15px rgba(43, 23, 194, 0.5); /* Light blue and deep blue glow */
-  }
-  50% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 15px rgba(43, 23, 194, 0.7),
-      0 0 20px rgba(147, 100, 197, 0.5); /* Brighter blue and purple glow */
-  }
-  75% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 12px rgba(239, 63, 169, 0.6),
-      0 0 18px rgba(88, 193, 69, 0.5); /* Light pink and greenish glow */
+  66% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(211, 84, 0, 0.5); /* Burnt orange glow */
   }
   100% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(239, 63, 169, 0.5); /* Final pinkish glow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 20px rgba(2, 114, 107, 0.5); /* Bright cyan glow */
   }
+}
+.element {
+  animation: lightningEffect 49s infinite; /* Set duration to 6s for slower effect */
 }
 
 /* Headings and Paragraph */
 .restaurant-user-container h1 {
   font-size: 2rem; /* Adjusted font size */
   margin-bottom: 10px; /* Adjusted margin */
-  color: #978be9;
+  color: #09a389;
   font-weight: bold;
 }
 
@@ -67,7 +58,7 @@
 .view-cart-button,
 .ok-button {
   padding: 10px 20px; /* Add padding for better button size */
-  background-color: #b8b0f1; /* Background color */
+  background-color: #18a0a0; /* Background color */
   color: rgb(0, 0, 0); /* Text color */
   font-weight: bold;
   border: none; /* No border */
@@ -79,7 +70,7 @@
 .menu-button:hover,
 .view-cart-button:hover,
 .ok-button:hover {
-  background-color: #988ee4; /* Darker shade on hover */
+  background-color: #9ee2e2; /* Darker shade on hover */
 }
 .cart-item {
   margin-bottom: 10px;
@@ -90,12 +81,12 @@
 .cart-items {
   margin-top: 20px;
   padding: 15px;
-  background: #dfddf5;
+  background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(88, 176, 190, 0.1);
 }
 .dish-item .cartb {
-  background-color: #b8b0f1;
+  background-color: #d9e8e8;
   border: 1px solid #d35400;
   margin-top: 15px;
 }
@@ -111,13 +102,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid #cbd5e0;
+  border-bottom: 2px solid #d35400;
 }
 
 .cart-item h3 {
   font-size: 1.2rem;
-  color: #2d3748;
+  color: #000000;
   flex: 1;
+  margin-right: 7px;
 }
 
 .cart-item img {
@@ -139,8 +131,10 @@
   font-size: 1rem;
   font-weight: bold;
   color: balck;
-  background-color: #b8b0f1;
-  border: 1px solid #d35400;
+  background-color: #d9e8e8;
+  border: 2px solid #d35400;
+  margin-left: 9px;
+  margin-right: 9px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -148,7 +142,7 @@
 }
 
 .quantity-control button:hover {
-  background-color: #aea5f8;
+  background-color: #95ebeb;
 }
 
 .quantity-control span {
@@ -162,17 +156,23 @@
   font-size: 20px;
   cursor: pointer;
 }
+.delete-button:hover {
+  background-color: #95ebeb;
+}
 .order-more-message {
   margin-top: 20px;
   font-size: 18px;
   font-weight: bold;
-  color: #006994; /* Choose a color that matches the theme */
+  color: #d35400; /* Choose a color that matches the theme */
 }
 .confirm-order-button {
   margin-left: 400px;
   margin-top: 5px;
-  background-color: #b8b0f1;
+  background-color: #d9e8e8;
   border: 2px solid #d35400;
+}
+.confirm-order-button:hover {
+  background-color: #95ebeb;
 }
 
 /* Responsive Design for Tablets */
