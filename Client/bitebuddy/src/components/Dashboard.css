@@ -94,7 +94,7 @@
 }
 .del {
   width: 200px;
-  margin-left: 390px;
+  margin-left: 540px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,9 +114,10 @@
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 1200px;
+
+  /* max-width: 1200px; hhhhhhhhhhhhhhhh
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 10px; */
 }
 
 /* Dish Item */
@@ -127,21 +128,16 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 350px; /* Keep the box height fixed */
-  position: relative; /* Allow positioning of text inside the box */
-  overflow: hidden; /* Prevent overflow of text and images */
 }
 
 /* Dish Item Image */
 .dish-item img {
-  width: 100%;
+  width: 75%;
   height: 150px; /* Set a fixed height for images */
-  object-fit: cover; /* Ensure images fill the box without distortion */
   border-radius: 10px;
-  margin-bottom: 10px; /* Add some spacing between image and text */
+  /* object-fit: cover; hhhhhhh
+  border-radius: 10px;
+  margin-bottom: 10px;  */
 }
 
 /* Dish Item Title */
@@ -151,38 +147,40 @@
   margin: 0;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap; /* Prevent long titles from breaking into multiple lines */
+  white-space: normal; /* Allow the title to wrap onto multiple lines */
+  word-wrap: break-word; /* Break long words if necessary */
 }
-
 /* Dish Item Text Handling */
 .dish-item p {
   font-size: 14px;
-  color: #555;
+  color: #050505;
   margin: 0;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap; /* Prevent long descriptions from breaking */
+  white-space: normal; /* Allow the description to wrap */
+  word-wrap: break-word; /* Break long words if necessary */
 }
 
 /* Error Message */
 .error {
   color: red;
 }
-
-/* General Small Screen Adjustments */
-@media (max-width: 768px) {
+/* Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  /* Dashboard Container */
   .dashboard-container {
     padding: 10px;
   }
 
+  /* Heading Style */
   .dasbhead {
     font-size: 1.5rem;
   }
 
+  /* Button Box */
   .button-box {
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
   }
 
   .button-box button {
@@ -191,40 +189,117 @@
     font-size: 14px;
   }
 
+  /* Dish Form */
   .dish-form {
-    margin-left: 0;
+    margin: 15px auto; /* Center the form */
+
     padding: 15px;
-    max-width: 100%;
-    box-shadow: none;
+    width: 100%;
+    max-width: 90%;
   }
 
   .dish-form input,
   .dish-form textarea {
-    font-size: 12px;
+    width: 100%;
+    padding: 8px;
+    margin-top: 2px;
+    border: 1px solid #ccc;
+    font-size: 14px; /* Consistent font size */
   }
 
-  .dish-form label {
+  /* Dish List */
+  .dish-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Dish Item Image */
+  .dish-item img {
+    width: 60%; /* Make images adapt to container width */
+    height: 150px; /* Maintain aspect ratio */
+  }
+
+  /* Delete Button */
+  .del {
+    width: 100%;
+    margin: 20px auto;
+    height: 40px;
     font-size: 14px;
+  }
+
+  /* Add Button */
+  .add {
+    width: 80px;
+    font-size: 12px;
+  }
+}
+
+/* Tablet Screens (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .dasbhead {
+    font-size: 1.8rem;
+  }
+
+  .button-box {
+    gap: 15px;
+  }
+
+  .dish-form {
+    margin: 15px auto;
+    width: 100%;
+    max-width: 80%;
+  }
+
+  .dish-form input,
+  .dish-form textarea {
+    font-size: 14px;
+    padding: 8px;
   }
 
   .dish-list {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    margin-left: 0;
-    gap: 10px;
-  }
-
-  .dish-item {
-    padding: 8px;
-    height: 250px; /* Keep the box height fixed */
+    gap: 15px;
   }
 
   .dish-item img {
+    width: 90%;
     height: 150px;
+  }
+  .add-update-margin {
+    margin-top: 30px; /* Adjust margin for these devices */
+  }
+}
+
+/* Larger Mobile Screens (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dasbhead {
+    font-size: 2rem;
+  }
+
+  .button-box {
+    gap: 20px;
+  }
+
+  .dish-form {
+    margin: 15px auto;
+    margin-left: 5%; /* Adjust for centered alignment */
+    max-width: 600px;
+  }
+
+  .dish-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .dish-item img {
+    width: 80%;
+    height: 150px; /* Maintain uniform height */
   }
 
   .del {
     margin-left: 0;
-    width: 100%;
-    margin-top: 20px;
+    width: 150px;
+  }
+  .add-update-margin {
+    margin-top: 30px; /* Adjust margin for these devices */
   }
 }
