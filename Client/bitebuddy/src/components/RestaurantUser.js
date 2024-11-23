@@ -172,7 +172,7 @@ function RestaurantUser() {
       </div>
 
       {isMenuVisible && (
-        <div className="dish-list">
+        <div className="dish-listt">
           {dishList.length === 0 ? (
             <p>No dishes available at the moment.</p>
           ) : (
@@ -187,7 +187,7 @@ function RestaurantUser() {
                   }}
                   className="dish-image"
                 />
-                <h2>{dish.dishName}</h2>
+                <h2 className="name">{dish.dishName}</h2>
                 <p>Price: Rs {parseFloat(dish.price).toFixed(2)}</p>
                 <button className="cartb" onClick={() => handleAddToCart(dish)}>
                   Add to Cart
