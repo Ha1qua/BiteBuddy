@@ -6,7 +6,7 @@ import "./RestaurantUser.css";
 function RestaurantUser() {
   const [tableNumber, setTableNumber] = useState("");
   const [dishList, setDishList] = useState([]);
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(true); // Set default to true so the menu is visible on load
   const [cartItems, setCartItems] = useState([]);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
