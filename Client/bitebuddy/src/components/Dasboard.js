@@ -9,7 +9,6 @@ function Dashboard() {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const [dishList, setDishList] = useState([]);
   const [selectedDishes, setSelectedDishes] = useState([]);
-  // const [restaurantId, setRestaurantId] = useState(null);
   const [dishToUpdate, setDishToUpdate] = useState(null);
   const [restaurantName, setRestaurantName] = useState("");
   const location = useLocation();
@@ -35,7 +34,6 @@ function Dashboard() {
   useEffect(() => {
     const id = localStorage.getItem("restaurantId");
     if (id) {
-      // setRestaurantId(id);
       fetchDishes(id);
       setNewDish((prev) => ({ ...prev, restaurant_id: id }));
       fetchRestaurantName(id);
@@ -170,6 +168,11 @@ function Dashboard() {
     navigate("/restaurant-user");
   };
 
+  // Navigate to Insights page
+  const handleGoToInsights = () => {
+    navigate("/insights");
+  };
+
   return (
     <div className="dashboard-container">
       <h1 className="dasbhead">
@@ -187,6 +190,8 @@ function Dashboard() {
           {isUpdateMode ? "Cancel Update" : "Update Menu"}
         </button>
         <button onClick={handleUserLogin}>Login for User</button>
+        {/* Insights Button */}
+        <button onClick={handleGoToInsights}>View Insights</button>
       </div>
 
       {isFormOpen && (
@@ -280,9 +285,9 @@ function Dashboard() {
       </div>
 
       {isDeleteMode && selectedDishes.length > 0 && (
-        <button className="del" onClick={handleDeleteDishes}>
-          Delete Selected Dishes
-        </button>
+        <div className="del">
+          <button onClick={handleDeleteDishes}>Delete Selected Dishes</button>
+        </div>
       )}
     </div>
   );

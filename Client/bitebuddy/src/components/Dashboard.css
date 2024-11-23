@@ -94,15 +94,14 @@
 }
 .del {
   width: 200px;
-  margin-left: 540px;
+  margin-left: 390px; /* Horizontal centering */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
+  background-color: #e8e6f8;
   margin-top: 34px;
-  background-color: #d9e8e8;
-  border: 2px solid #d35400;
-  cursor: pointer;
+  border: 1px solid #d35400;
 }
 
 /* Dish List Styling */
