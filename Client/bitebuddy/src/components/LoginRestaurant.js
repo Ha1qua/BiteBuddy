@@ -139,7 +139,14 @@ function LoginRestaurant() {
           setIsSignUp(false); // Toggle to login form
         } else {
           console.log("Login successful:", response.data);
-          navigate("/dashboard"); // Redirect to dashboard after login
+          // Store the JWT token and restaurantId in localStorage
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("restaurantId", response.data.restaurantId);
+
+          // Redirect to dashboard and pass the restaurantId as state
+          navigate("/dashboard", {
+            state: { restaurantId: response.data.restaurantId },
+          });
         }
       }
     } catch (error) {

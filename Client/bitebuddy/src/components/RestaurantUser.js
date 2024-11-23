@@ -137,7 +137,7 @@ function RestaurantUser() {
         navigate("/review", { state: { foodNames } });
         setCartItems([]); // Clear cart after order is confirmed
       } else {
-        alert("Failed to confirm the order.");
+        alert(response.data.message); // Display the error message from backend
       }
     } catch (error) {
       console.error("Error confirming order:", error);

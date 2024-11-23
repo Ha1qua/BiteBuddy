@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Dashboard.css";
 
@@ -9,9 +9,14 @@ function Dashboard() {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const [dishList, setDishList] = useState([]);
   const [selectedDishes, setSelectedDishes] = useState([]);
-  const [restaurantId, setRestaurantId] = useState(null);
+  // const [restaurantId, setRestaurantId] = useState(null);
   const [dishToUpdate, setDishToUpdate] = useState(null);
   const [restaurantName, setRestaurantName] = useState("");
+  const location = useLocation();
+  const restaurantId =
+    location.state?.restaurantId || localStorage.getItem("restaurantId");
+  console.log("Restaurant ID:", restaurantId);
+
   const [newDish, setNewDish] = useState({
     dishName: "",
     price: "",
@@ -232,7 +237,7 @@ function Dashboard() {
             <input
               type="text"
               name="restaurant_id"
-              value={newDish.restaurant_id}
+              value={restaurantId}
               readOnly
             />
           </label>
