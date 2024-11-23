@@ -7,6 +7,8 @@ function LoginRestaurant() {
   const [isSignUp, setIsSignUp] = useState(true); // Toggle between SignUp and Login
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false); // Track form submission
+  const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // For confirm password visibility
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -34,6 +36,13 @@ function LoginRestaurant() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   const validateForm = () => {
     const newErrors = {};
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,8 +56,15 @@ function LoginRestaurant() {
         "Restaurant name must be at least 7 characters.";
     }
 
-    if (isSignUp && formData.ownerName.length < 3) {
-      newErrors.ownerName = "Owner name must be at least 3 characters.";
+    if (isSignUp) {
+      const namePattern = /^[A-Za-z\s]+$/; // Regular expression for letters and spaces only
+
+      if (formData.ownerName.length < 3) {
+        newErrors.ownerName = "Owner name must be at least 3 characters.";
+      } else if (!namePattern.test(formData.ownerName)) {
+        newErrors.ownerName =
+          "Owner name must contain only letters and spaces (no special characters or numbers).";
+      }
     }
 
     if (isSignUp && formData.address.length < 10) {
@@ -235,14 +251,23 @@ function LoginRestaurant() {
             <label htmlFor="password">
               Password <span className="required">*</span>
             </label>
-            <input
-              ref={inputRefs.password}
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
+            <div className="password-container">
+              <input
+                ref={inputRefs.password}
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
             {hasSubmitted && errors.password && (
               <span className="error">{errors.password}</span>
             )}
@@ -253,14 +278,23 @@ function LoginRestaurant() {
               <label htmlFor="confirmPassword">
                 Confirm Password <span className="required">*</span>
               </label>
-              <input
-                ref={inputRefs.confirmPassword}
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-              />
+              <div className="password-container">
+                <input
+                  ref={inputRefs.confirmPassword}
+                  type={showConfirmPassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={toggleConfirmPasswordVisibility}
+                >
+                  {showConfirmPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
               {hasSubmitted && errors.confirmPassword && (
                 <span className="error">{errors.confirmPassword}</span>
               )}
