@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Review.css"; // Import your regular CSS file
+import { useNavigate } from "react-router-dom";
 
 function Review() {
+  const navigate = useNavigate();
   const location = useLocation();
   const foodNames = location.state?.foodNames || [];
   const [reviews, setReviews] = useState(
@@ -47,6 +49,7 @@ function Review() {
         setReviews(
           foodNames.map((food) => ({ foodName: food, review: "", rating: 1 }))
         ); // Reset reviews
+        navigate("/");
       } else {
         alert("Failed to submit reviews.");
       }
@@ -58,7 +61,7 @@ function Review() {
 
   return (
     <div className="review-container">
-      <h1>Your Voice is Important to Us</h1>
+      <h1 className="rhead">Your Voice is Important to Us</h1>
       <h2 class="review-heading">Leave a Review!</h2>
       {reviews.map((item, index) => (
         <div key={index} className="review-item">
