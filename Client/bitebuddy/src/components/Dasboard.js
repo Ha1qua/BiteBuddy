@@ -35,7 +35,7 @@ function Dashboard() {
   useEffect(() => {
     const id = localStorage.getItem("restaurantId");
     if (id) {
-      setRestaurantId(id);
+      // setRestaurantId(id);
       fetchDishes(id);
       setNewDish((prev) => ({ ...prev, restaurant_id: id }));
       fetchRestaurantName(id);
