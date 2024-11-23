@@ -1,60 +1,88 @@
 /* Review.css */
 .review-container {
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  background-color: #d2e2de; /* Clean white background */
+  border-radius: 10px; /* Slightly more rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   max-width: 600px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-left: 350px;
+  margin: 30px auto; /* Centered on all screen sizes */
 }
 
-.review-container h1 {
+h1 {
+  font-family: "Georgia", serif; /* Elegant serif font */
   text-align: center;
   color: #333;
+  font-size: 30px;
+}
+
+.review-heading {
+  font-family: "Georgia", serif; /* Elegant cursive or fancy font */
+  text-align: center;
+  color: #000000; /* Elegant color for contrast */
+  font-size: 24px;
+  margin-top: 10px;
 }
 
 .review-item {
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Consistent spacing between items */
 }
 
 .review-item h3 {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
+  color: #000000;
+  margin-left: 9px;
+  margin-bottom: 8px;
+  font-family: fantasy;
 }
 
 .review-item textarea {
   width: 100%;
   height: 100px;
   padding: 10px;
-  margin-top: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #afadad;
   font-size: 14px;
+  background-color: #e1f5f5; /* Light gray for contrast */
+  resize: none; /* Prevent resizing */
+}
+.review-item textarea:focus {
+  border-color: black; /* Change border color when focused */
+  outline: none; /* Remove the default outline */
 }
 
 .review-item input[type="number"] {
   width: 60px;
   padding: 5px;
-  margin-top: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #b4b3b3;
+  font-size: 14px;
+  color: #000000;
+}
+.label {
+  color: #d35400;
+  margin-left: 9px;
+  margin-top: 10px;
 }
 
 .review-container button {
   display: block;
-  width: 190px;
+  width: 100%;
+  max-width: 200px;
   padding: 10px;
-  background-color: #006994;
-  color: white;
+  background-color: #749d92;
+  border: 2px solid black;
+  color: black;
   font-size: 16px;
-  border: none;
+  font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
-  margin-left: 190px;
+  margin: 20px auto;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
 .review-container button:hover {
-  background-color: #005678;
+  background-color: #d35400;
+  color: #fff;
+  transform: translateY(-4px);
 }

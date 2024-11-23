@@ -58,7 +58,8 @@ function Review() {
 
   return (
     <div className="review-container">
-      <h1>Write Reviews</h1>
+      <h1>Your Voice is Important to Us</h1>
+      <h2 class="review-heading">Leave a Review!</h2>
       {reviews.map((item, index) => (
         <div key={index} className="review-item">
           <h3>{item.foodName}</h3>
@@ -69,7 +70,7 @@ function Review() {
               handleReviewChange(index, "review", e.target.value)
             }
           />
-          <label>
+          <label className="label">
             Rating (1-10):
             <input
               type="number"
