@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./LoginRestaurant.css";
 import { useNavigate } from "react-router-dom";
@@ -92,6 +92,17 @@ function LoginRestaurant() {
   };
 
   const handleSubmit = async (e) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (
+      !passwordPattern.test(formData.password) ||
+      !emailPattern.test(formData.email)
+    ) {
+      alert(
+        "There seems to be an issue with the login details. Please check again."
+      );
+    }
     e.preventDefault();
     setHasSubmitted(true); // Indicate form submission
     const newErrors = validateForm();
@@ -242,7 +253,7 @@ function LoginRestaurant() {
               value={formData.email}
               onChange={handleChange}
             />
-            {hasSubmitted && errors.email && (
+            {isSignUp && hasSubmitted && errors.email && (
               <span className="error">{errors.email}</span>
             )}
           </div>
@@ -268,7 +279,7 @@ function LoginRestaurant() {
                 {showPassword ? "🙈" : "👁️"}
               </button>
             </div>
-            {hasSubmitted && errors.password && (
+            {isSignUp && hasSubmitted && errors.password && (
               <span className="error">{errors.password}</span>
             )}
           </div>
