@@ -219,9 +219,10 @@
   }
 
   /* Delete Button */
-  .del {
-    width: 100%;
-    margin: 20px auto;
+  .del button {
+    width: 200px;
+    margin-left: 90px;
+    margin-top: 19px;
     height: 40px;
     font-size: 14px;
   }
@@ -267,6 +268,13 @@
   .add-update-margin {
     margin-top: 30px; /* Adjust margin for these devices */
   }
+  .del button {
+    width: 200px;
+    margin-left: 210px;
+    margin-top: 19px;
+    height: 40px;
+    font-size: 14px;
+  }
 }
 
 /* Larger Mobile Screens (769px to 1024px) */
@@ -294,9 +302,12 @@
     height: 150px; /* Maintain uniform height */
   }
 
-  .del {
-    margin-left: 0;
-    width: 150px;
+  .del button {
+    width: 200px;
+    margin-left: 290px;
+    margin-top: 19px;
+    height: 40px;
+    font-size: 14px;
   }
   .add-update-margin {
     margin-top: 30px; /* Adjust margin for these devices */
