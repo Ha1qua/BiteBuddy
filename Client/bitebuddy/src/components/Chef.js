@@ -28,10 +28,11 @@ function Chef() {
   };
 
   // Fetch orders for the chef from the backend
+  // Fetch orders for the chef from the backend
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/chef/orders?restaurantId=${restaurantId}`
+        `http://localhost:5000/api/chef/orders?restaurantId=${restaurantId}` // Include restaurantId as query parameter
       );
       setOrders(response.data);
     } catch (err) {
