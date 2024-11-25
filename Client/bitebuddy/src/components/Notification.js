@@ -4,6 +4,7 @@ import "./Notification.css"; // Import the external CSS file
 
 function Notification() {
   const [restaurantId, setRestaurantId] = useState(""); // To store the restaurant ID
+  const [chefId, setChefId] = useState(""); // To store the chef's ID
   const [isVerified, setIsVerified] = useState(false); // To track verification status
   const [error, setError] = useState(""); // To handle error messages
 
@@ -27,6 +28,15 @@ function Notification() {
     }
   };
 
+  const handleMessageSend = () => {
+    if (restaurantId === chefId) {
+      // Allow message sending if IDs match
+      alert("Hello! IDs match!");
+    } else {
+      setError("The Restaurant ID and Chef ID do not match.");
+    }
+  };
+
   return (
     <div className="notification-container">
       <h2>Verify Restaurant ID</h2>
@@ -42,8 +52,26 @@ function Notification() {
           className="input"
         />
       </div>
+
+      <div className="input-container">
+        <label htmlFor="chefId" className="label">
+          Enter Chef ID:
+        </label>
+        <input
+          type="text"
+          id="chefId"
+          value={chefId}
+          onChange={(e) => setChefId(e.target.value)}
+          className="input"
+        />
+      </div>
+
       <button onClick={verifyRestaurantId} className="verify-button">
-        Verify
+        Verify Restaurant ID
+      </button>
+
+      <button onClick={handleMessageSend} className="send-message-button">
+        Send Message to Notification
       </button>
 
       {isVerified && (
@@ -52,11 +80,7 @@ function Notification() {
         </div>
       )}
 
-      {error && (
-        <div className="error-message">
-          <strong>{error}</strong>
-        </div>
-      )}
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 }

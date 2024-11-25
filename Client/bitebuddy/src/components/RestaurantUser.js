@@ -132,9 +132,8 @@ function RestaurantUser() {
       );
 
       if (response.status === 200) {
-        // Navigate to review page and pass food names
-        const foodNames = cartItems.map((item) => item.dishName);
-        navigate("/review", { state: { foodNames } });
+        // After the order is confirmed, navigate to the messages page
+        navigate("/message"); // Redirect to messages page
         setCartItems([]); // Clear cart after order is confirmed
       } else {
         alert(response.data.message); // Display the error message from backend

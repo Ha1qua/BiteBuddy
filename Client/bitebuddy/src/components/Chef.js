@@ -1,42 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Chef.css";
+import "./Chef.css"; // Make sure to import the CSS file
 
-function Chef() {
+const Chef = () => {
   const [restaurantId, setRestaurantId] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [chefMessages, setChefMessages] = useState([]); // State to hold chef messages
-  const [selectedTable, setSelectedTable] = useState(""); // State for selected table number
-  const [selectedMessage, setSelectedMessage] = useState(""); // State for selected message
+  const [tableNumber, setTableNumber] = useState(""); // Table number state
+  const [statusMessage, setStatusMessage] = useState(""); // Status message state
+  const [chefMessages, setChefMessages] = useState([]); // To store chef messages
 
-  // List of predefined messages
-  const messageOptions = [
+  const statusOptions = [
     "Order is confirmed.",
     "Order is in progress.",
     "Order will be ready in 15 minutes.",
     "Order is ready to deliver.",
   ];
 
-  // Send message to the chat component
-  const sendMessageToChat = (message, tableNumber) => {
-    setChefMessages((prevMessages) => [
-      ...prevMessages,
-      { tableNumber, message, timestamp: new Date() },
-    ]);
-  };
-
-  // Handle message sending
-  const handleSendMessage = () => {
-    if (!selectedTable || !selectedMessage) {
-      setError("Please select a table and a message.");
-      return;
-    }
-    sendMessageToChat(selectedMessage, selectedTable);
-    setError(""); // Clear error if message is sent
-  };
-
+  // Function to verify restaurant ID
   const verifyRestaurantId = async () => {
     try {
       const response = await axios.post(
@@ -55,6 +38,7 @@ function Chef() {
     }
   };
 
+  // Function to fetch orders
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
@@ -67,11 +51,81 @@ function Chef() {
     }
   };
 
+  // Function to send a message
+  const sendMessage = () => {
+    if (tableNumber && statusMessage.trim()) {
+      const fullMessage = {
+        tableNumber,
+        message: statusMessage,
+        timestamp: new Date().getTime(), // Store timestamp as a number (milliseconds)
+      };
+
+      // Get messages from localStorage
+      const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
+
+      // Find the index of the message for the selected table number
+      const existingMessageIndex = messages.findIndex(
+        (msg) => msg.tableNumber === tableNumber
+      );
+
+      if (existingMessageIndex !== -1) {
+        // If a message exists for that table, update it
+        messages[existingMessageIndex] = fullMessage;
+      } else {
+        // If no message exists for that table, add the new message
+        messages.push(fullMessage);
+      }
+
+      // Save the updated list of messages to localStorage
+      localStorage.setItem("chefMessages", JSON.stringify(messages));
+
+      // Update the state with the new list of messages
+      setChefMessages(messages);
+
+      // Clear the input fields
+      setMessage("");
+      setTableNumber("");
+      setStatusMessage("");
+    } else {
+      setError("Please select a table and status message.");
+    }
+  };
+
+  // Function to clear expired messages (older than 1 minute)
+  const clearExpiredMessages = () => {
+    const currentTime = new Date().getTime();
+
+    // Filter out messages older than 1 minute (60 * 1000 ms)
+    const validMessages = chefMessages.filter((msg) => {
+      return currentTime - msg.timestamp < 1 * 60 * 1000; // 1 minute in milliseconds
+    });
+
+    // Update the state and localStorage
+    setChefMessages(validMessages);
+    localStorage.setItem("chefMessages", JSON.stringify(validMessages));
+  };
+
+  // Set an interval to clear messages every 60 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      clearExpiredMessages();
+    }, 60000); // 60000ms = 1 minute
+
+    // Cleanup the interval when the component is unmounted
+    return () => clearInterval(interval);
+  }, [chefMessages]); // Run this effect whenever chefMessages change
+
+  // Load messages from localStorage when the component mounts
+  useEffect(() => {
+    const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
+    setChefMessages(messages);
+  }, []);
+
   return (
     <div className="chef-container">
       {!isVerified ? (
         <div className="verify-restaurant">
-          <h2>Enter Your Restaurant ID</h2>
+          <h2>Enter Restaurant ID</h2>
           <input
             type="text"
             value={restaurantId}
@@ -82,11 +136,14 @@ function Chef() {
           {error && <p className="error-message">{error}</p>}
         </div>
       ) : (
-        <>
+        <div>
+          <h2>Chef Dashboard</h2>
+
+          {/* Display Orders */}
           <div className="chef-orders">
             <h2>Incoming Orders</h2>
-            {error ? (
-              <p className="error-message">{error}</p>
+            {orders.length === 0 ? (
+              <p>No orders available.</p>
             ) : (
               <table className="orders-table">
                 <thead>
@@ -109,42 +166,41 @@ function Chef() {
             )}
           </div>
 
-          {/* Message Selection Section */}
+          {/* Message Input */}
           <div className="send-message">
-            <h2>Send Message to a Table</h2>
-            <div>
-              <label>Select Table Number:</label>
-              <select
-                value={selectedTable}
-                onChange={(e) => setSelectedTable(e.target.value)}
-              >
-                <option value="">Choose Table</option>
-                {[...Array(15).keys()].map((table) => (
-                  <option key={table} value={table + 1}>
-                    Table {table + 1}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label>Select Message:</label>
-              <select
-                value={selectedMessage}
-                onChange={(e) => setSelectedMessage(e.target.value)}
-              >
-                <option value="">Choose Message</option>
-                {messageOptions.map((message, index) => (
-                  <option key={index} value={message}>
-                    {message}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <button onClick={handleSendMessage}>Send Message</button>
+            <h3>Send Message to a Table</h3>
+
+            <label>Table Number</label>
+            <select
+              value={tableNumber}
+              onChange={(e) => setTableNumber(e.target.value)}
+            >
+              <option value="">Select Table</option>
+              {[...Array(15)].map((_, index) => (
+                <option key={index} value={index + 1}>
+                  Table {index + 1}
+                </option>
+              ))}
+            </select>
+
+            <label>Status Message</label>
+            <select
+              value={statusMessage}
+              onChange={(e) => setStatusMessage(e.target.value)}
+            >
+              <option value="">Select Status</option>
+              {statusOptions.map((status, index) => (
+                <option key={index} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+
+            <button onClick={sendMessage}>Send Message</button>
             {error && <p className="error-message">{error}</p>}
           </div>
 
-          {/* Messages Section */}
+          {/* Display Messages */}
           <div className="messages">
             <h2>Chef Messages</h2>
             {chefMessages.length === 0 ? (
@@ -156,15 +212,19 @@ function Chef() {
                     <strong>Table {message.tableNumber}:</strong>{" "}
                     {message.message}
                   </p>
-                  <small>{message.timestamp.toLocaleString()}</small>
+                  {message.timestamp && (
+                    <small>
+                      {new Date(message.timestamp).toLocaleString()}
+                    </small>
+                  )}
                 </div>
               ))
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
-}
+};
 
 export default Chef;
