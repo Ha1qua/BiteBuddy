@@ -146,7 +146,7 @@ const Chef = () => {
           <div className="chef-layout">
             {/* Orders Section */}
             <div className="chef-orders">
-              <h3 className="heading">Incoming Orders</h3>
+              <h3 className="headingd">Incoming Orders</h3>
               {orders.length === 0 ? (
                 <p>No orders available.</p>
               ) : (
@@ -173,9 +173,10 @@ const Chef = () => {
 
             {/* Message Section */}
             <div className="send-message">
-              <h3 className="heading">Send Message to a Table</h3>
-              <label>Table Number</label>
+              <h3 className="headingd">Send Message to a Table</h3>
+              <label className="lab">Table Number</label>
               <select
+                className="s"
                 value={tableNumber}
                 onChange={(e) => setTableNumber(e.target.value)}
               >
@@ -187,7 +188,7 @@ const Chef = () => {
                 ))}
               </select>
 
-              <label>Status Message</label>
+              <label className="lab">Status Message</label>
               <select
                 value={statusMessage}
                 onChange={(e) => setStatusMessage(e.target.value)}
@@ -205,7 +206,7 @@ const Chef = () => {
 
             {/* Chef Messages Section */}
             <div className="messages">
-              <h3>Messages</h3>
+              <h3 className="headingd">Messages</h3>
               {chefMessages.length === 0 ? (
                 <p>No messages available.</p>
               ) : (
