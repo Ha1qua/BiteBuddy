@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./Chef.css"; // Make sure to import the CSS file
+import "./Chef.css"; // Ensure to import your CSS file
 
 const Chef = () => {
   const [restaurantId, setRestaurantId] = useState("");
@@ -136,90 +136,85 @@ const Chef = () => {
           {error && <p className="error-message">{error}</p>}
         </div>
       ) : (
-        <div>
+        <div className="dashboard">
           <h2>Chef Dashboard</h2>
 
-          {/* Display Orders */}
-          <div className="chef-orders">
-            <h2>Incoming Orders</h2>
-            {orders.length === 0 ? (
-              <p>No orders available.</p>
-            ) : (
-              <table className="orders-table">
-                <thead>
-                  <tr>
-                    <th>Table</th>
-                    <th>Dish</th>
-                    <th>Quantity</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map((order, index) => (
-                    <tr key={index}>
-                      <td>{order.table_number}</td>
-                      <td>{order.dishName}</td>
-                      <td>{order.quantity}</td>
+          <div className="chef-layout">
+            {/* Orders Section (Left side) */}
+            <div className="chef-orders">
+              <h3>Incoming Orders</h3>
+              {orders.length === 0 ? (
+                <p>No orders available.</p>
+              ) : (
+                <table className="orders-table">
+                  <thead>
+                    <tr>
+                      <th>Table</th>
+                      <th>Dish</th>
+                      <th>Quantity</th>
                     </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((order, index) => (
+                      <tr key={index}>
+                        <td>{order.table_number}</td>
+                        <td>{order.dishName}</td>
+                        <td>{order.quantity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+
+            {/* Message Section (Middle) */}
+            <div className="send-message">
+              <h3>Send Message to a Table</h3>
+
+              <label>Table Number</label>
+              <select
+                value={tableNumber}
+                onChange={(e) => setTableNumber(e.target.value)}
+              >
+                <option value="">Select Table</option>
+                {[...Array(15)].map((_, index) => (
+                  <option key={index} value={index + 1}>
+                    Table {index + 1}
+                  </option>
+                ))}
+              </select>
+
+              <label>Status Message</label>
+              <select
+                value={statusMessage}
+                onChange={(e) => setStatusMessage(e.target.value)}
+              >
+                <option value="">Select Message</option>
+                {statusOptions.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+
+              <button onClick={sendMessage}>Send Message</button>
+            </div>
+
+            {/* Chef Messages Section (Right side) */}
+            <div className="messages">
+              <h3>Messages</h3>
+              {chefMessages.length === 0 ? (
+                <p>No messages available.</p>
+              ) : (
+                <div>
+                  {chefMessages.map((msg, index) => (
+                    <div key={index} className="message">
+                      <strong>Table {msg.tableNumber}</strong>: {msg.message}
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-
-          {/* Message Input */}
-          <div className="send-message">
-            <h3>Send Message to a Table</h3>
-
-            <label>Table Number</label>
-            <select
-              value={tableNumber}
-              onChange={(e) => setTableNumber(e.target.value)}
-            >
-              <option value="">Select Table</option>
-              {[...Array(15)].map((_, index) => (
-                <option key={index} value={index + 1}>
-                  Table {index + 1}
-                </option>
-              ))}
-            </select>
-
-            <label>Status Message</label>
-            <select
-              value={statusMessage}
-              onChange={(e) => setStatusMessage(e.target.value)}
-            >
-              <option value="">Select Status</option>
-              {statusOptions.map((status, index) => (
-                <option key={index} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
-
-            <button onClick={sendMessage}>Send Message</button>
-            {error && <p className="error-message">{error}</p>}
-          </div>
-
-          {/* Display Messages */}
-          <div className="messages">
-            <h2>Chef Messages</h2>
-            {chefMessages.length === 0 ? (
-              <p>No messages yet.</p>
-            ) : (
-              chefMessages.map((message, index) => (
-                <div className="message" key={index}>
-                  <p>
-                    <strong>Table {message.tableNumber}:</strong>{" "}
-                    {message.message}
-                  </p>
-                  {message.timestamp && (
-                    <small>
-                      {new Date(message.timestamp).toLocaleString()}
-                    </small>
-                  )}
                 </div>
-              ))
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}
