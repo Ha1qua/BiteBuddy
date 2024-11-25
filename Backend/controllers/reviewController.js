@@ -3,14 +3,19 @@ const { addReviews } = require("../models/reviewModel");
 // Add reviews to the database
 const submitReviews = async (req, res) => {
   try {
-    const { reviews } = req.body;
+    const { reviews, restaurantId } = req.body; // Ensure restaurantId is passed from frontend
 
     // Validation to ensure reviews exist and are well-formed
     if (!Array.isArray(reviews) || reviews.length === 0) {
       return res.status(400).json({ message: "Invalid reviews data." });
     }
 
-    await addReviews(reviews);
+    // Ensure restaurantId is provided
+    if (!restaurantId) {
+      return res.status(400).json({ message: "Restaurant ID is required." });
+    }
+
+    await addReviews(reviews, restaurantId);
 
     res.status(201).json({ message: "Reviews added successfully!" });
   } catch (error) {

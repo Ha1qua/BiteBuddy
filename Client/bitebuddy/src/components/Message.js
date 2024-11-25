@@ -41,7 +41,7 @@ const Message = () => {
 
   // Handler for navigation to the review page
   const handleNavigateToReview = () => {
-    navigate("/review", { state: { foodNames } });
+    navigate("/review", { state: { foodNames, restaurantId } });
   };
 
   return (
@@ -68,7 +68,7 @@ const Message = () => {
         </ul>
       )}
 
-      {/* Display food names */}
+      {/* Display food names
       {foodNames.length > 0 && (
         <div>
           <h3>Your order includes:</h3>
@@ -78,7 +78,7 @@ const Message = () => {
             ))}
           </ul>
         </div>
-      )}
+      )} */}
 
       {/* Button to navigate to the review page */}
       <button onClick={handleNavigateToReview} className="review-button">

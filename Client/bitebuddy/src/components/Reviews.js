@@ -7,6 +7,7 @@ function Review() {
   const navigate = useNavigate();
   const location = useLocation();
   const foodNames = location.state?.foodNames || [];
+  const restaurantId = location.state?.restaurantId || ""; // Retrieve restaurantId from state
   const [reviews, setReviews] = useState(
     foodNames.map((food) => ({ foodName: food, review: "", rating: 1 }))
   );
@@ -42,8 +43,8 @@ function Review() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/food-reviews",
-        { reviews }
+        "http://localhost:5000/api/food-reviews", // Your API endpoint
+        { reviews, restaurantId } // Include restaurantId here
       );
 
       if (response.status === 201) {
@@ -51,7 +52,7 @@ function Review() {
         setReviews(
           foodNames.map((food) => ({ foodName: food, review: "", rating: 1 }))
         ); // Reset reviews
-        navigate("/");
+        navigate("/"); // Redirect to the home page after successful submission
       } else {
         alert("Failed to submit reviews.");
       }
