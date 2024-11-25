@@ -132,9 +132,10 @@ function RestaurantUser() {
       );
 
       if (response.status === 200) {
-        // Navigate to the Message component with the restaurantId
-        // console.log(restaurantId);
-        navigate("/message", { state: { restaurantId } });
+        // Navigate to Review page and pass food names
+        const foodNames = cartItems.map((item) => item.dishName); // Extract food names from cart
+        navigate("/message", { state: { restaurantId, foodNames } });
+        // navigate("/review", { state: { foodNames } });
         setCartItems([]); // Clear cart after order is confirmed
       } else {
         alert(response.data.message); // Display the error message from backend

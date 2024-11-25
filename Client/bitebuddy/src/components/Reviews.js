@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Review.css"; // Import your regular CSS file
-import { useNavigate } from "react-router-dom";
 
 function Review() {
   const navigate = useNavigate();
@@ -11,6 +10,7 @@ function Review() {
   const [reviews, setReviews] = useState(
     foodNames.map((food) => ({ foodName: food, review: "", rating: 1 }))
   );
+  const [loading, setLoading] = useState(false);
 
   // Update the state when a review or rating changes
   const handleReviewChange = (index, field, value) => {
@@ -38,6 +38,8 @@ function Review() {
       return;
     }
 
+    setLoading(true); // Show loading spinner
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/food-reviews",
@@ -56,13 +58,15 @@ function Review() {
     } catch (error) {
       console.error("Error submitting reviews:", error);
       alert("An error occurred while submitting reviews.");
+    } finally {
+      setLoading(false); // Hide loading spinner
     }
   };
 
   return (
     <div className="review-container">
       <h1 className="rhead">Your Voice is Important to Us</h1>
-      <h2 class="review-heading">Leave a Review!</h2>
+      <h2 className="review-heading">Leave a Review!</h2>
       {reviews.map((item, index) => (
         <div key={index} className="review-item">
           <h3>{item.foodName}</h3>
@@ -91,8 +95,12 @@ function Review() {
           </label>
         </div>
       ))}
-      <button className="review-button" onClick={handleSubmit}>
-        Submit Reviews
+      <button
+        className="review-button"
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? "Submitting..." : "Submit Reviews"}
       </button>
     </div>
   );
