@@ -17,7 +17,6 @@ function Notification() {
       if (response.data.success) {
         setIsVerified(true);
         setError("");
-        fetchOrders(); // Replace this with your actual functionality
       } else {
         setIsVerified(false);
         setError("Invalid restaurant ID. Please try again.");
@@ -26,11 +25,6 @@ function Notification() {
       console.error("Error verifying restaurant ID:", err);
       setError("Failed to verify ID. Please try again later.");
     }
-  };
-
-  const fetchOrders = () => {
-    // Implement fetch orders functionality here
-    console.log("Fetching orders...");
   };
 
   return (
