@@ -2,51 +2,56 @@ import React, { useEffect, useState } from "react";
 
 const Message = () => {
   const [chefMessages, setChefMessages] = useState([]);
+  const [restaurantId, setRestaurantId] = useState("");
 
   useEffect(() => {
-    // Load initial messages from localStorage
-    const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
+    // Load restaurant ID from localStorage (or another source)
+    const id = localStorage.getItem("restaurantId") || "Unknown Restaurant";
+    setRestaurantId(id);
 
-    // Filter out invalid messages (empty fields)
-    const validMessages = messages.filter(
-      (msg) => msg.tableNumber && msg.message && msg.timestamp
-    );
-
-    setChefMessages(validMessages);
-
-    // Listen for changes in localStorage
-    const handleStorageChange = () => {
-      const updatedMessages =
-        JSON.parse(localStorage.getItem("chefMessages")) || [];
-      // Filter again when messages are updated
-      const validUpdatedMessages = updatedMessages.filter(
-        (msg) => msg.tableNumber && msg.message && msg.timestamp
+    // Function to filter and update messages
+    const updateMessages = () => {
+      const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
+      const validMessages = messages.filter(
+        (msg) =>
+          msg.tableNumber &&
+          msg.message &&
+          msg.timestamp &&
+          msg.restaurantId === id // Only match messages with the same restaurantId
       );
-      setChefMessages(validUpdatedMessages);
+      setChefMessages(validMessages);
     };
 
-    window.addEventListener("storage", handleStorageChange);
+    // Load initial messages
+    updateMessages();
 
-    // Cleanup listener on unmount
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
+    // Set up an interval to poll for new messages
+    const interval = setInterval(updateMessages, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(interval); // Clean up interval on component unmount
   }, []);
 
   return (
-    <div>
-      <h2>Messages</h2>
-      {chefMessages.length > 0 ? (
-        <ul>
-          {chefMessages.map((msg, index) => (
-            <li key={index}>
-              <strong>Table {msg.tableNumber}:</strong> {msg.message} -{" "}
-              {msg.timestamp && new Date(msg.timestamp).toLocaleString()}
-            </li>
-          ))}
-        </ul>
+    <div className="message-container">
+      <h1>Chef's Messages</h1>
+      <h2>Restaurant ID: {restaurantId}</h2> {/* Display the restaurant ID */}
+      {chefMessages.length === 0 ? (
+        <p>No messages from the chef yet.</p>
       ) : (
-        <p>No messages yet.</p>
+        <ul>
+          {chefMessages.map((message, index) => {
+            console.log("Haiqua", message.id); // Log "Haiqua" and the message ID
+            return (
+              <li key={index} className="message-item">
+                <p>
+                  <strong>Table {message.tableNumber}:</strong>{" "}
+                  {message.message}
+                </p>
+                <small>{new Date(message.timestamp).toLocaleString()}</small>
+              </li>
+            );
+          })}
+        </ul>
       )}
     </div>
   );

@@ -132,8 +132,9 @@ function RestaurantUser() {
       );
 
       if (response.status === 200) {
-        // After the order is confirmed, navigate to the messages page
-        navigate("/message"); // Redirect to messages page
+        // Navigate to the Message component with the restaurantId
+        // console.log(restaurantId);
+        navigate("/message", { state: { restaurantId } });
         setCartItems([]); // Clear cart after order is confirmed
       } else {
         alert(response.data.message); // Display the error message from backend

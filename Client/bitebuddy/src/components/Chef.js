@@ -55,6 +55,7 @@ const Chef = () => {
   const sendMessage = () => {
     if (tableNumber && statusMessage.trim()) {
       const fullMessage = {
+        restaurantId, // Include the restaurant ID
         tableNumber,
         message: statusMessage,
         timestamp: new Date().getTime(), // Store timestamp as a number (milliseconds)
@@ -65,14 +66,15 @@ const Chef = () => {
 
       // Find the index of the message for the selected table number
       const existingMessageIndex = messages.findIndex(
-        (msg) => msg.tableNumber === tableNumber
+        (msg) =>
+          msg.tableNumber === tableNumber && msg.restaurantId === restaurantId
       );
 
       if (existingMessageIndex !== -1) {
-        // If a message exists for that table, update it
+        // If a message exists for that table and restaurant ID, update it
         messages[existingMessageIndex] = fullMessage;
       } else {
-        // If no message exists for that table, add the new message
+        // If no message exists for that table and restaurant ID, add the new message
         messages.push(fullMessage);
       }
 
@@ -138,7 +140,9 @@ const Chef = () => {
       ) : (
         <div className="dashboard">
           <h2>Chef Dashboard</h2>
-
+          <p>
+            Restaurant ID: <strong>{restaurantId}</strong>
+          </p>
           <div className="chef-layout">
             {/* Orders Section (Left side) */}
             <div className="chef-orders">
