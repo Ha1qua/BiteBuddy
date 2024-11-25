@@ -1,0 +1,88 @@
+/* Style for the container */
+.message-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #e9edec; /* Light grey background */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: fantasy; /* Apply sans-serif fonts */
+  font-size: 1.8rem;
+  font-weight: bolder;
+}
+.tablemsg {
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px; /* Adds spacing below the entire message */
+}
+
+.timestamp {
+  display: block; /* Ensures the timestamp is on a new line */
+  margin-top: 5px; /* Adds space above the timestamp */
+  color: #d35400 !important; /* Ensures the color is applied even if overridden */
+  font-size: 0.9rem; /* Adjusts the size */
+}
+
+.linechef {
+  font-family: Arial, sans-serif;
+  color: black;
+}
+/* Style for the title */
+.message-container h1 {
+  font-size: 24px;
+  color: #088a74; /* Dark grey */
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Style for the restaurant ID */
+.message-container h2 {
+  font-size: 18px;
+  color: #555; /* Medium grey */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style for the "No messages" paragraph */
+.message-container p {
+  font-size: 16px;
+  color: #666; /* Grey */
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Style for the message list */
+.message-container ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+/* Style for each message item */
+.message-container .message-item {
+  background-color: #fff; /* White background */
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 6px; /* Rounded corners */
+  padding: 15px;
+  margin-bottom: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect for message items */
+.message-container .message-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Style for the table number and message */
+.message-container .message-item p {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Style for the timestamp */
+.message-container .message-item small {
+  font-size: 14px;
+  color: #888; /* Light grey */
+}

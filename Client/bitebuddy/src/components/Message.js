@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import "./Message.css";
 const Message = () => {
   const [chefMessages, setChefMessages] = useState([]);
   const [restaurantId, setRestaurantId] = useState("");
@@ -33,21 +33,23 @@ const Message = () => {
 
   return (
     <div className="message-container">
-      <h1>Chef's Messages</h1>
-      <h2>Restaurant ID: {restaurantId}</h2> {/* Display the restaurant ID */}
+      <h1>Quick update on your delicious order!</h1>
+      {/* <h2>Restaurant ID: {restaurantId}</h2> Display the restaurant ID */}
       {chefMessages.length === 0 ? (
-        <p>No messages from the chef yet.</p>
+        <p className="linechef">No messages from the chef yet.</p>
       ) : (
         <ul>
           {chefMessages.map((message, index) => {
-            console.log("Haiqua", message.id); // Log "Haiqua" and the message ID
+            // console.log("Haiqua", message.id); // Log "Haiqua" and the message ID
             return (
               <li key={index} className="message-item">
-                <p>
+                <p className="tablemsg">
                   <strong>Table {message.tableNumber}:</strong>{" "}
                   {message.message}
+                  <small className="timestamp">
+                    {new Date(message.timestamp).toLocaleString()}
+                  </small>
                 </p>
-                <small>{new Date(message.timestamp).toLocaleString()}</small>
               </li>
             );
           })}
