@@ -6,7 +6,6 @@ const Chef = () => {
   const [restaurantId, setRestaurantId] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [orders, setOrders] = useState([]);
-  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [tableNumber, setTableNumber] = useState(""); // Table number state
   const [statusMessage, setStatusMessage] = useState(""); // Status message state
@@ -29,6 +28,7 @@ const Chef = () => {
       if (response.data.success) {
         setIsVerified(true);
         fetchOrders();
+        setError(""); // Clear any error on successful verification
       } else {
         setError("Invalid restaurant ID. Please try again.");
       }
@@ -85,7 +85,6 @@ const Chef = () => {
       setChefMessages(messages);
 
       // Clear the input fields
-      setMessage("");
       setTableNumber("");
       setStatusMessage("");
     } else {
@@ -139,7 +138,7 @@ const Chef = () => {
         </div>
       ) : (
         <div className="dashboard">
-          <h2>
+          <h2 className="headingm">
             Your Kitchen at a Glance
             <br />
             Track, Manage, and Perfect Every Order
@@ -147,7 +146,7 @@ const Chef = () => {
           <div className="chef-layout">
             {/* Orders Section */}
             <div className="chef-orders">
-              <h3>Incoming Orders</h3>
+              <h3 className="heading">Incoming Orders</h3>
               {orders.length === 0 ? (
                 <p>No orders available.</p>
               ) : (
@@ -174,7 +173,7 @@ const Chef = () => {
 
             {/* Message Section */}
             <div className="send-message">
-              <h3>Send Message to a Table</h3>
+              <h3 className="heading">Send Message to a Table</h3>
               <label>Table Number</label>
               <select
                 value={tableNumber}
