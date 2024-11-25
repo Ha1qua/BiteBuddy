@@ -88,16 +88,18 @@
 }
 
 .review-button {
-  background-color: #006994;
-  color: #ffd700;
+  background-color: #c0e0e0;
+  border: 2px solid #d35400;
   padding: 10px 20px;
-  border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-left: 370px;
 }
 
 .review-button:hover {
-  background-color: #004c66;
+  background-color: #d35400; /* Darker shade on hover */
+  color: white;
+  transform: translateY(-4px);
 }
