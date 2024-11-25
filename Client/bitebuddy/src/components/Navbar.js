@@ -61,11 +61,6 @@ function Navbar() {
                 Chef
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/notification">
-                Notification
-              </Link>
-            </li>
           </ul>
         </div>
       </div>
