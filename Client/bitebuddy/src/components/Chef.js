@@ -93,29 +93,29 @@ const Chef = () => {
     }
   };
 
-  // Function to clear expired messages (older than 1 minute)
-  const clearExpiredMessages = () => {
-    const currentTime = new Date().getTime();
+  // Function to clear messages individually after 1 minute
+  useEffect(() => {
+    const messageTimers = chefMessages.map((msg, index) => {
+      const timeLeft = new Date().getTime() - msg.timestamp;
+      const delay = 1 * 60 * 1000 - timeLeft; // 1 minute - time passed
 
-    // Filter out messages older than 1 minute (60 * 1000 ms)
-    const validMessages = chefMessages.filter((msg) => {
-      return currentTime - msg.timestamp < 1 * 60 * 1000; // 1 minute in milliseconds
+      if (delay > 0) {
+        return setTimeout(() => {
+          setChefMessages((prevMessages) => {
+            const updatedMessages = prevMessages.filter((_, i) => i !== index);
+            localStorage.setItem(
+              "chefMessages",
+              JSON.stringify(updatedMessages)
+            );
+            return updatedMessages;
+          });
+        }, delay);
+      }
+      return null;
     });
 
-    // Update the state and localStorage
-    setChefMessages(validMessages);
-    localStorage.setItem("chefMessages", JSON.stringify(validMessages));
-  };
-
-  // Set an interval to clear messages every 60 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      clearExpiredMessages();
-    }, 60000); // 60000ms = 1 minute
-
-    // Cleanup the interval when the component is unmounted
-    return () => clearInterval(interval);
-  }, [chefMessages]); // Run this effect whenever chefMessages change
+    return () => messageTimers.forEach((timer) => clearTimeout(timer));
+  }, [chefMessages]);
 
   // Load messages from localStorage when the component mounts
   useEffect(() => {
@@ -139,12 +139,13 @@ const Chef = () => {
         </div>
       ) : (
         <div className="dashboard">
-          <h2>Chef Dashboard</h2>
-          <p>
-            Restaurant ID: <strong>{restaurantId}</strong>
-          </p>
+          <h2>
+            Your Kitchen at a Glance
+            <br />
+            Track, Manage, and Perfect Every Order
+          </h2>
           <div className="chef-layout">
-            {/* Orders Section (Left side) */}
+            {/* Orders Section */}
             <div className="chef-orders">
               <h3>Incoming Orders</h3>
               {orders.length === 0 ? (
@@ -171,10 +172,9 @@ const Chef = () => {
               )}
             </div>
 
-            {/* Message Section (Middle) */}
+            {/* Message Section */}
             <div className="send-message">
               <h3>Send Message to a Table</h3>
-
               <label>Table Number</label>
               <select
                 value={tableNumber}
@@ -204,7 +204,7 @@ const Chef = () => {
               <button onClick={sendMessage}>Send Message</button>
             </div>
 
-            {/* Chef Messages Section (Right side) */}
+            {/* Chef Messages Section */}
             <div className="messages">
               <h3>Messages</h3>
               {chefMessages.length === 0 ? (
