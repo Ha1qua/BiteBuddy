@@ -9,6 +9,7 @@ import Message from "./components/Message";
 import Chef from "./components/Chef";
 import Review from "./components/Reviews";
 import Insights from "./components/Insights";
+import Notification from "./components/Notification";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/insights" element={<Insights />} /> {/* Insights route */}
         <Route path="/chef" element={<Chef />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/notification" element={<Notification />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

@@ -1,0 +1,51 @@
+.notification-container {
+  margin-top: 20px;
+}
+
+.notification-container h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.notification-container .input-container {
+  margin-bottom: 15px;
+}
+
+.notification-container .label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.notification-container .input {
+  width: 200px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.notification-container .verify-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.notification-container .verify-button:hover {
+  background-color: #218838;
+}
+
+.notification-container .success-message {
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+}
+
+.notification-container .error-message {
+  margin-top: 20px;
+  color: red;
+  font-size: 0.9rem;
+}
