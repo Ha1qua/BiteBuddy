@@ -1,6 +1,5 @@
-const User = require("../models/User"); // Import the User class
+const User = require("../models/User");
 
-// User Registration (Sign Up)
 const signUp = async (req, res) => {
   const { email, password, restaurantName, ownerName, address, phoneNumber } =
     req.body;
@@ -28,4 +27,5 @@ const signUp = async (req, res) => {
       .json({ error: "Registration failed. Email may already be registered." });
   }
 };
+
 module.exports = { signUp };

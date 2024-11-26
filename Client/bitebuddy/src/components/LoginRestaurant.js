@@ -4,6 +4,7 @@ import "./LoginRestaurant.css";
 import { useNavigate } from "react-router-dom";
 
 function LoginRestaurant() {
+  const [errorMessage, setErrorMessage] = useState(""); // State to hold the error message
   const [isSignUp, setIsSignUp] = useState(true); // Toggle between SignUp and Login
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false); // Track form submission
@@ -96,12 +97,15 @@ function LoginRestaurant() {
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if (
-      !passwordPattern.test(formData.password) ||
+      (!isSignUp && !passwordPattern.test(formData.password)) ||
       !emailPattern.test(formData.email)
     ) {
-      alert(
+      setErrorMessage(
         "There seems to be an issue with the login details. Please check again."
       );
+    } else {
+      setErrorMessage(""); // Clear the error message if validation passes
+      // Continue with your login logic...
     }
     e.preventDefault();
     setHasSubmitted(true); // Indicate form submission
@@ -150,8 +154,19 @@ function LoginRestaurant() {
         }
       }
     } catch (error) {
-      console.error(error);
-      alert(error.response?.data?.message || error);
+      console.error("Error:", error);
+
+      // Ensure error.response is available and contains the backend message
+      if (error.response && error.response.data) {
+        console.error("Backend Error:", error.response.data);
+        setErrors({
+          backend: error.response.data.error || error.response.data.message,
+        });
+      } else {
+        // In case there's no response (e.g., network failure)
+        console.error("Network Error:", error);
+        setErrors({ backend: "Network error, please try again later." });
+      }
     }
   };
 
@@ -260,6 +275,11 @@ function LoginRestaurant() {
               value={formData.email}
               onChange={handleChange}
             />
+            {errors.backend && (
+              <div className="error-message">
+                <span>{errors.backend}</span>
+              </div>
+            )}
             {isSignUp && hasSubmitted && errors.email && (
               <span className="error">{errors.email}</span>
             )}
@@ -286,6 +306,11 @@ function LoginRestaurant() {
                 {showPassword ? "🙈" : "👁️"}
               </button>
             </div>
+            {errorMessage && (
+              <div style={{ color: "red", marginTop: "5px" }}>
+                {errorMessage}
+              </div>
+            )}
             {isSignUp && hasSubmitted && errors.password && (
               <span className="error">{errors.password}</span>
             )}
