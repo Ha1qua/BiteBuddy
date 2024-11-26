@@ -132,7 +132,9 @@ function Review() {
         <div
           style={{
             marginTop: "20px",
-            color: submitMessage.includes("successfully") ? "green" : "red",
+            marginLeft: "165px",
+            fontWeight: "bold",
+            color: submitMessage.includes("successfully") ? "black" : "red",
           }}
         >
           {submitMessage}
