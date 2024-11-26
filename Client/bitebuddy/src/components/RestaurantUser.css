@@ -256,4 +256,89 @@
   .restaurant-user-container p {
     font-size: 0.9rem;
   }
+  .button-row {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 15px; /* Adjust spacing between buttons */
+  }
+
+  .menu-button,
+  .view-cart-button,
+  .ok-button {
+    width: 100%; /* Make buttons take full width */
+    padding: 10px; /* Adjust padding for a better fit */
+    font-size: 1rem; /* Adjust font size for readability */
+  }
+
+  .quantity-control {
+    flex-direction: column; /* Stack quantity controls vertically */
+    align-items: stretch; /* Stretch buttons to match input width */
+    gap: 10px; /* Add spacing between elements */
+  }
+
+  .quantity-control button {
+    width: 100%; /* Ensure buttons are responsive */
+    padding: 8px;
+  }
+
+  .quantity-control span {
+    text-align: center; /* Center quantity text */
+    font-size: 0.9rem; /* Adjust font size */
+  }
+
+  .confirm-order-button {
+    width: 100%; /* Full width for smaller screens */
+    margin-left: 0; /* Reset margin */
+    margin-top: 10px;
+  }
+
+  .cart-items {
+    width: 100%; /* Ensure the cart items section is responsive */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .cart-item img {
+    width: 60px; /* Smaller image size */
+    height: 60px; /* Match the width */
+  }
+  .menu-button,
+  .view-cart-button,
+  .ok-button {
+    width: 100%; /* Full-width buttons for better usability on small screens */
+    text-align: center;
+  }
+
+  .cart-item img {
+    width: 60px; /* Adjusted size for mobile */
+    height: 60px;
+  }
+
+  .cart-item h3 {
+    font-size: 1rem; /* Adjusted font size for mobile */
+  }
+
+  .quantity-control span {
+    font-size: 0.9rem; /* Smaller font size for mobile */
+  }
+
+  .dish-listt {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(150px, 1fr)
+    ); /* Smaller columns for mobile */
+    gap: 15px; /* Adjusted spacing */
+  }
+
+  .dish-item img {
+    height: 120px; /* Adjusted image height for mobile */
+  }
+
+  .name {
+    font-size: 1.5rem; /* Adjusted font size for mobile */
+  }
+
+  .confirm-order-button {
+    margin-left: 0; /* Center align on mobile */
+    width: 100%; /* Full-width button for better accessibility */
+    text-align: center;
+  }
 }
