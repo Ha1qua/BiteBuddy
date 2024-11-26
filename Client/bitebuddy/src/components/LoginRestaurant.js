@@ -151,7 +151,7 @@ function LoginRestaurant() {
       }
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || "Enter correct credentials");
+      alert(error.response?.data?.message || error);
     }
   };
 
