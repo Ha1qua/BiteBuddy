@@ -130,9 +130,18 @@ const Chef = () => {
           <input
             type="text"
             value={restaurantId}
-            onChange={(e) => setRestaurantId(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*$/.test(value)) {
+                setRestaurantId(value); // Update state only if the input is numeric
+                setError(""); // Clear error if the input is valid
+              } else {
+                setError("Incorrect information");
+              }
+            }}
             placeholder="Restaurant ID"
           />
+
           <button onClick={verifyRestaurantId}>Verify</button>
           {error && <p className="error-message">{error}</p>}
         </div>
