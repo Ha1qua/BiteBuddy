@@ -96,17 +96,26 @@ function LoginRestaurant() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    if (
-      (!isSignUp && !passwordPattern.test(formData.password)) ||
-      !emailPattern.test(formData.email)
+    if (!isSignUp && !emailPattern.test(formData.email)) {
+      setErrorMessage("Please enter correct crediantals.");
+    } else if (
+      !isSignUp && // Login-specific validation
+      !passwordPattern.test(formData.password)
     ) {
       setErrorMessage(
         "There seems to be an issue with the login details. Please check again."
       );
+    } else if (
+      isSignUp && // Signup-specific validation
+      (!passwordPattern.test(formData.password) ||
+        formData.password !== formData.confirmPassword)
+    ) {
+      setErrorMessage("");
     } else {
       setErrorMessage(""); // Clear the error message if validation passes
-      // Continue with your login logic...
+      // Continue with your login or signup logic...
     }
+
     e.preventDefault();
     setHasSubmitted(true); // Indicate form submission
     const newErrors = validateForm();
@@ -275,7 +284,7 @@ function LoginRestaurant() {
               value={formData.email}
               onChange={handleChange}
             />
-            {errors.backend && (
+            {!isSignUp && errors.backend && (
               <div className="error-message">
                 <span>{errors.backend}</span>
               </div>
