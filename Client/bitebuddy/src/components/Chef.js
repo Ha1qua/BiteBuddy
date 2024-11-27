@@ -29,6 +29,14 @@ const Chef = () => {
         setIsVerified(true);
         fetchOrders();
         setError(""); // Clear any error on successful verification
+
+        // Load messages specific to the current restaurant ID
+        const allMessages =
+          JSON.parse(localStorage.getItem("chefMessages")) || [];
+        const filteredMessages = allMessages.filter(
+          (msg) => msg.restaurantId === restaurantId
+        );
+        setChefMessages(filteredMessages);
       } else {
         setError("Invalid restaurant ID. Please try again.");
       }
@@ -55,38 +63,41 @@ const Chef = () => {
   const sendMessage = () => {
     if (tableNumber && statusMessage.trim()) {
       const fullMessage = {
-        restaurantId, // Include the restaurant ID
         tableNumber,
         message: statusMessage,
-        timestamp: new Date().getTime(), // Store timestamp as a number (milliseconds)
+        timestamp: new Date().getTime(),
       };
 
-      // Get messages from localStorage
-      const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
+      // Get existing messages for this restaurant ID
+      const messages =
+        JSON.parse(localStorage.getItem(`chefMessages_${restaurantId}`)) || [];
 
       // Find the index of the message for the selected table number
       const existingMessageIndex = messages.findIndex(
-        (msg) =>
-          msg.tableNumber === tableNumber && msg.restaurantId === restaurantId
+        (msg) => msg.tableNumber === tableNumber
       );
 
       if (existingMessageIndex !== -1) {
-        // If a message exists for that table and restaurant ID, update it
+        // Update existing message
         messages[existingMessageIndex] = fullMessage;
       } else {
-        // If no message exists for that table and restaurant ID, add the new message
+        // Add new message
         messages.push(fullMessage);
       }
 
-      // Save the updated list of messages to localStorage
-      localStorage.setItem("chefMessages", JSON.stringify(messages));
+      // Save updated messages to localStorage
+      localStorage.setItem(
+        `chefMessages_${restaurantId}`,
+        JSON.stringify(messages)
+      );
 
-      // Update the state with the new list of messages
+      // Update state
       setChefMessages(messages);
 
-      // Clear the input fields
+      // Clear inputs
       setTableNumber("");
       setStatusMessage("");
+      setError(""); // Clear any previous errors
     } else {
       setError("Please select a table and status message.");
     }
@@ -96,14 +107,14 @@ const Chef = () => {
   useEffect(() => {
     const messageTimers = chefMessages.map((msg, index) => {
       const timeLeft = new Date().getTime() - msg.timestamp;
-      const delay = 1 * 60 * 1000 - timeLeft; // 1 minute - time passed
+      const delay = 1 * 60 * 1000 - timeLeft;
 
       if (delay > 0) {
         return setTimeout(() => {
           setChefMessages((prevMessages) => {
             const updatedMessages = prevMessages.filter((_, i) => i !== index);
             localStorage.setItem(
-              "chefMessages",
+              `chefMessages_${restaurantId}`,
               JSON.stringify(updatedMessages)
             );
             return updatedMessages;
@@ -114,13 +125,16 @@ const Chef = () => {
     });
 
     return () => messageTimers.forEach((timer) => clearTimeout(timer));
-  }, [chefMessages]);
+  }, [chefMessages, restaurantId]);
 
   // Load messages from localStorage when the component mounts
   useEffect(() => {
-    const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
-    setChefMessages(messages);
-  }, []);
+    if (restaurantId) {
+      const messages =
+        JSON.parse(localStorage.getItem(`chefMessages_${restaurantId}`)) || [];
+      setChefMessages(messages);
+    }
+  }, [restaurantId]);
 
   return (
     <div className="chef-container">
