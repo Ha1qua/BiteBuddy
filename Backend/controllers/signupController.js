@@ -1,54 +1,47 @@
 const User = require("../models/User");
-const pool = require("../services/db"); // Assuming the database connection is exported from services/db.js
+const pool = require("../services/db");
 
 const signUp = async (req, res) => {
   const { email, password, restaurantName, ownerName, address, phoneNumber } =
     req.body;
 
-  const testName = "User Signup Test";
-
   try {
-    // Create a new User instance
-    const user = new User(
+    const connection = await pool.getConnection();
+
+    // Assuming User.save() saves a new restaurant to the DB
+    const user = new User({
       email,
-      password,
+      password, // Assuming the password is hashed before saving
       restaurantName,
       ownerName,
       address,
-      phoneNumber
-    );
+      phoneNumber,
+    });
 
-    // Hash the password and save the user
-    await user.hashPassword(); // Hashes the password
-    await user.save(); // Saves the user to the database
+    await user.hashPassword(); // Hash password before saving
+    await user.save(); // Save the user to the database
 
-    // Log success to the connection_tests table
-    const connection = await pool.getConnection();
+    // Log the success into a test table
     await connection.query(
       "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
-      [testName, true]
+      ["User Signup Test", true]
     );
     connection.release();
 
+    // Respond with success
     res.status(201).json({ message: "Restaurant registered successfully!" });
   } catch (error) {
-    console.error(error);
+    // Handle errors (e.g., database issues)
+    const connection = await pool.getConnection();
+    await connection.query(
+      "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
+      ["User Signup Test", false]
+    );
+    connection.release();
 
-    // Log failure to the connection_tests table
-    try {
-      const connection = await pool.getConnection();
-      await connection.query(
-        "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
-        [testName, false]
-      );
-      connection.release();
-    } catch (dbError) {
-      console.error("Failed to log the test result:", dbError.message);
-    }
-
-    res
-      .status(500)
-      .json({ error: "Registration failed. Email may already be registered." });
+    res.status(500).json({
+      error: "Registration failed. Email may already be registered.",
+    });
   }
 };
 
