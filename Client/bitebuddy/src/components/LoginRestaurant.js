@@ -163,7 +163,7 @@ function LoginRestaurant() {
         }
       }
     } catch (error) {
-      console.error("Error:", error);
+      alert("email already registered");
 
       // Ensure error.response is available and contains the backend message
       if (error.response && error.response.data) {

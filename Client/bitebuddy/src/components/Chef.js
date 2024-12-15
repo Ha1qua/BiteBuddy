@@ -30,13 +30,16 @@ const Chef = () => {
         fetchOrders();
         setError(""); // Clear any error on successful verification
 
-        // Load messages specific to the current restaurant ID
+        // Clear messages from localStorage for this restaurant
         const allMessages =
           JSON.parse(localStorage.getItem("chefMessages")) || [];
-        const filteredMessages = allMessages.filter(
-          (msg) => msg.restaurantId === restaurantId
+        const updatedMessages = allMessages.filter(
+          (msg) => msg.restaurantId !== restaurantId
         );
-        setChefMessages(filteredMessages);
+        localStorage.setItem("chefMessages", JSON.stringify(updatedMessages));
+
+        // Set empty messages state
+        setChefMessages([]);
       } else {
         setError("Invalid restaurant ID. Please try again.");
       }
@@ -63,41 +66,38 @@ const Chef = () => {
   const sendMessage = () => {
     if (tableNumber && statusMessage.trim()) {
       const fullMessage = {
+        restaurantId, // Include the restaurant ID
         tableNumber,
         message: statusMessage,
-        timestamp: new Date().getTime(),
+        timestamp: new Date().getTime(), // Store timestamp as a number (milliseconds)
       };
 
-      // Get existing messages for this restaurant ID
-      const messages =
-        JSON.parse(localStorage.getItem(`chefMessages_${restaurantId}`)) || [];
+      // Get messages from localStorage
+      const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
 
       // Find the index of the message for the selected table number
       const existingMessageIndex = messages.findIndex(
-        (msg) => msg.tableNumber === tableNumber
+        (msg) =>
+          msg.tableNumber === tableNumber && msg.restaurantId === restaurantId
       );
 
       if (existingMessageIndex !== -1) {
-        // Update existing message
+        // If a message exists for that table and restaurant ID, update it
         messages[existingMessageIndex] = fullMessage;
       } else {
-        // Add new message
+        // If no message exists for that table and restaurant ID, add the new message
         messages.push(fullMessage);
       }
 
-      // Save updated messages to localStorage
-      localStorage.setItem(
-        `chefMessages_${restaurantId}`,
-        JSON.stringify(messages)
-      );
+      // Save the updated list of messages to localStorage
+      localStorage.setItem("chefMessages", JSON.stringify(messages));
 
-      // Update state
+      // Update the state with the new list of messages
       setChefMessages(messages);
 
-      // Clear inputs
+      // Clear the input fields
       setTableNumber("");
       setStatusMessage("");
-      setError(""); // Clear any previous errors
     } else {
       setError("Please select a table and status message.");
     }
@@ -107,14 +107,14 @@ const Chef = () => {
   useEffect(() => {
     const messageTimers = chefMessages.map((msg, index) => {
       const timeLeft = new Date().getTime() - msg.timestamp;
-      const delay = 1 * 60 * 1000 - timeLeft;
+      const delay = 1 * 60 * 1000 - timeLeft; // 1 minute - time passed
 
       if (delay > 0) {
         return setTimeout(() => {
           setChefMessages((prevMessages) => {
             const updatedMessages = prevMessages.filter((_, i) => i !== index);
             localStorage.setItem(
-              `chefMessages_${restaurantId}`,
+              "chefMessages",
               JSON.stringify(updatedMessages)
             );
             return updatedMessages;
@@ -125,16 +125,13 @@ const Chef = () => {
     });
 
     return () => messageTimers.forEach((timer) => clearTimeout(timer));
-  }, [chefMessages, restaurantId]);
+  }, [chefMessages]);
 
   // Load messages from localStorage when the component mounts
   useEffect(() => {
-    if (restaurantId) {
-      const messages =
-        JSON.parse(localStorage.getItem(`chefMessages_${restaurantId}`)) || [];
-      setChefMessages(messages);
-    }
-  }, [restaurantId]);
+    const messages = JSON.parse(localStorage.getItem("chefMessages")) || [];
+    setChefMessages(messages);
+  }, []);
 
   return (
     <div className="chef-container">
@@ -155,7 +152,6 @@ const Chef = () => {
             }}
             placeholder="Restaurant ID"
           />
-
           <button onClick={verifyRestaurantId}>Verify</button>
           {error && <p className="error-message">{error}</p>}
         </div>
