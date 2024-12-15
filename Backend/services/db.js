@@ -14,6 +14,7 @@ const pool = mysql.createPool({
 
   try {
     const connection = await pool.getConnection();
+    await connection.query("DELETE FROM connection_tests");
     console.log("Database connected successfully!");
 
     // Insert the test result into the database

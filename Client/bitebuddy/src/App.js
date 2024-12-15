@@ -10,6 +10,7 @@ import Message from "./components/Message";
 import Chef from "./components/Chef";
 import Review from "./components/Reviews";
 import Insights from "./components/Insights";
+import Testcase from "./components/Testcase";
 
 function App() {
   const [chefMessages, setChefMessages] = useState([]);
@@ -37,6 +38,7 @@ function App() {
           element={<Message chefMessages={chefMessages} />}
         />
         <Route path="/review" element={<Review />} />
+        <Route path="/testcase" element={<Testcase />} />
 
         {/* Add more routes as needed */}
       </Routes>

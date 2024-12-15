@@ -17,6 +17,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const chefRoutes = require("./routes/chefRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const chefloginRoutes = require("./routes/chefloginRoutes");
+const testcaseRoutes = require("./routes/testcaseRoutes");
 
 // Import controllers
 const { scheduleCleanup } = require("./controllers/sessionController");
@@ -29,6 +30,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/chef", chefRoutes);
 app.use("/api", reviewRoutes); // Add the new food reviews route
 app.use("/api", chefloginRoutes);
+app.use(testcaseRoutes);
 
 // Start scheduled cleanup for expired sessions
 scheduleCleanup();
