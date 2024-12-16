@@ -38,7 +38,7 @@ const login = async (req, res) => {
       restaurantId: user.id, // Assuming user.id is the restaurant ID
     });
   } catch (error) {
-    console.error(error);
+    console.error(error); // Logs error to the console
     res.status(500).json({ error: "Login failed. Please try again." });
   }
 };
