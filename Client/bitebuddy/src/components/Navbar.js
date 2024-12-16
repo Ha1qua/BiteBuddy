@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css"; // Custom CSS
 
 function Navbar() {
+  const [visibleLinks, setVisibleLinks] = useState([]);
+
+  useEffect(() => {
+    const navLinks = ["Home", "Login", "Chef", "TestCaseResult"];
+    let delay = 2000; // 2 seconds
+
+    navLinks.forEach((link, index) => {
+      setTimeout(() => {
+        setVisibleLinks((prevLinks) => [...prevLinks, link]);
+      }, delay * index);
+    });
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
@@ -27,45 +40,53 @@ function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link active" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link"
-                href="/"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                onClick={(e) => e.preventDefault()}
-              >
-                Login
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link className="dropdown-item" to="/login-user">
-                    Login as User
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/login-restaurant">
-                    Login as Restaurant
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/chef">
-                Chef
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/testcase">
-                TestCaseResult
-              </Link>
-            </li>
+            {visibleLinks.includes("Home") && (
+              <li className="nav-item">
+                <Link className="nav-link active" to="/">
+                  Home
+                </Link>
+              </li>
+            )}
+            {visibleLinks.includes("Login") && (
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link"
+                  href="/"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Login
+                </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/login-user">
+                      Login as User
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/login-restaurant">
+                      Login as Restaurant
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            )}
+            {visibleLinks.includes("Chef") && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/chef">
+                  Chef
+                </Link>
+              </li>
+            )}
+            {visibleLinks.includes("TestCaseResult") && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/testcase">
+                  TestCaseResult
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
