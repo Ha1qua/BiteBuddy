@@ -94,12 +94,16 @@ function LoginRestaurant() {
         if (!passwordPattern.test(value)) {
           newErrors.password =
             "Password must have uppercase, lowercase, numbers, special characters, and at least 8 characters.";
+        } else {
+          newErrors.password = ""; // Clear password error if valid
         }
         break;
 
       case "confirmPassword":
         if (value !== formData.password) {
           newErrors.confirmPassword = "Passwords do not match.";
+        } else {
+          newErrors.confirmPassword = ""; // Clear password error if valid
         }
         break;
 
