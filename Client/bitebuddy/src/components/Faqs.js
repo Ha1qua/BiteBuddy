@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import "./Faqs.css";
 
 const Faqs = () => {
   const [questions, setQuestions] = useState([]);
@@ -39,38 +40,35 @@ const Faqs = () => {
   };
 
   if (loading) {
-    return <div>Loading FAQs...</div>;
+    return <div className="faqs-loading">Loading FAQs...</div>;
   }
 
   return (
-    <div>
-      <h2>FAQs</h2>
-      <ul>
+    <div className="faqs-container">
+      <h2 className="faqs-heading">Frequently Asked Questions</h2>
+      <ul className="faqs-list">
         {questions.map((question, index) => (
           <li
             key={index}
             onClick={() => handleQuestionClick(question)}
-            style={{ cursor: "pointer", marginBottom: "10px" }}
+            className="faqs-question"
           >
-            {question}
+            <div className="faqs-question-text">{question}</div>
+            {/* Display the selected question and its answer together */}
+            {selectedQuestion === question && (
+              <div className="faqs-answer">
+                {answer ? (
+                  <div>
+                    <p className="faqs-answer-text">{answer}</p>
+                  </div>
+                ) : (
+                  <div className="faqs-answer-loading">Loading answer...</div>
+                )}
+              </div>
+            )}
           </li>
         ))}
       </ul>
-
-      {/* Display the selected question and its answer */}
-      {selectedQuestion && (
-        <div>
-          <h3>Question: {selectedQuestion}</h3>
-          {answer ? (
-            <div>
-              <h4>Answer:</h4>
-              <p>{answer}</p>
-            </div>
-          ) : (
-            <div>Loading answer...</div> // Show loading while the answer is being fetched
-          )}
-        </div>
-      )}
     </div>
   );
 };

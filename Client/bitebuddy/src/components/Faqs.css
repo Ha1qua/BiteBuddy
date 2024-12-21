@@ -1,0 +1,92 @@
+/* Container styling for the FAQs section */
+.faqs-container {
+  font-family: Arial, sans-serif;
+  margin: 20px auto; /* Centers the container and adds margin */
+  max-width: 800px; /* Limits the container width */
+  padding: 10px; /* Adds some padding inside the container */
+  box-sizing: border-box; /* Ensures padding doesn't affect the container's width */
+}
+
+/* Heading styling */
+.faqs-heading {
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 15px;
+  text-align: center;
+  margin-left: 230px;
+  border-bottom: 2px solid #2b9276;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* List styling */
+.faqs-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.faqs-question {
+  font-size: 18px;
+  padding: 10px 15px;
+  border: 1.5px solid #d35400;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #cce8e1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.faqs-question:hover {
+  background-color: #f6fcfa;
+  color: black;
+  transform: scale(1.03);
+}
+
+/* Answer section styling */
+.faqs-answer-section {
+  margin-top: 20px;
+}
+
+.faqs-answer {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000000;
+  margin: 0;
+}
+
+/* Loading message styling */
+.faqs-loading,
+.faqs-answer-loading {
+  font-size: 16px;
+  color: #000000;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .faqs-heading {
+    font-size: 20px;
+  }
+
+  .faqs-question {
+    font-size: 16px; /* Reduced font size */
+    padding: 8px 12px; /* Reduced padding */
+    border: 1px solid #d35400; /* Adjusted border size */
+    border-radius: 5px;
+    margin-bottom: 8px; /* Reduced margin */
+    background-color: #b8e2d7;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .faqs-selected-question,
+  .faqs-answer-heading {
+    font-size: 18px;
+  }
+
+  .faqs-answer {
+    font-size: 14px;
+  }
+}
