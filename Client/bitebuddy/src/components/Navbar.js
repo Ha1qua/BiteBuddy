@@ -9,11 +9,23 @@ function Navbar() {
     const navLinks = ["Home", "Login", "Chef", "TestCaseResult"];
     let delay = 2000; // 2 seconds
 
-    navLinks.forEach((link, index) => {
-      setTimeout(() => {
-        setVisibleLinks((prevLinks) => [...prevLinks, link]);
-      }, delay * index);
-    });
+    const showLinkWithDelay = (link, index) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          setVisibleLinks((prevLinks) => [...prevLinks, link]);
+          resolve();
+        }, delay * index);
+      });
+    };
+
+    // Sequentially add each link with the delay
+    const addLinksSequentially = async () => {
+      for (let i = 0; i < navLinks.length; i++) {
+        await showLinkWithDelay(navLinks[i], i);
+      }
+    };
+
+    addLinksSequentially();
   }, []);
 
   return (
