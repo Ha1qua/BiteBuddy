@@ -22,7 +22,6 @@ const chefloginRoutes = require("./routes/chefloginRoutes");
 const testcaseRoutes = require("./routes/testcaseRoutes");
 
 // Import controllers
-const { scheduleCleanup } = require("./controllers/sessionController");
 
 // Use routes
 app.use("/auth", authRoutes);
@@ -35,7 +34,7 @@ app.use("/api", chefloginRoutes);
 app.use(testcaseRoutes);
 
 // Start scheduled cleanup for expired sessions
-scheduleCleanup();
+// scheduleCleanup();
 
 // Create an HTTP server using Express
 const server = http.createServer(app);
