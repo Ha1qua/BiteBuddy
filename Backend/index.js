@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const dishRoutes = require("./routes/dishRoutes");
-const sessionRoutes = require("./routes/sessionRoutes");
+// const sessionRoutes = require("./routes/sessionRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const chefRoutes = require("./routes/chefRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
@@ -27,7 +27,7 @@ const { scheduleCleanup } = require("./controllers/sessionController");
 // Use routes
 app.use("/auth", authRoutes);
 app.use("/dishes", dishRoutes);
-app.use("/api/sessions", sessionRoutes);
+// app.use("/api/sessions", sessionRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/chef", chefRoutes);
 app.use("/api", reviewRoutes);
