@@ -34,7 +34,15 @@ function LoginRestaurant() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    const fieldErrors = validateField(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ...fieldErrors,
+    }));
   };
 
   const togglePasswordVisibility = () => {
@@ -44,49 +52,66 @@ function LoginRestaurant() {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
-  const validateForm = () => {
+  // Field validation logic
+  const validateField = (fieldName, value) => {
     const newErrors = {};
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(formData.email)) {
-      newErrors.email = "Enter a valid email (e.g., abc@gmail.com).";
-    }
-
-    if (isSignUp && formData.restaurantName.length < 7) {
-      newErrors.restaurantName =
-        "Restaurant name must be at least 7 characters.";
-    }
-
-    if (isSignUp) {
-      const namePattern = /^[A-Za-z\s]+$/; // Regular expression for letters and spaces only
-
-      if (formData.ownerName.length < 3) {
-        newErrors.ownerName = "Owner name must be at least 3 characters.";
-      } else if (!namePattern.test(formData.ownerName)) {
-        newErrors.ownerName =
-          "Owner name must contain only letters and spaces (no special characters or numbers).";
-      }
-    }
-
-    if (isSignUp && formData.address.length < 10) {
-      newErrors.address = "Address must be at least 10 characters.";
-    }
-
+    const namePattern = /^[A-Za-z\s]+$/;
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    if (!passwordPattern.test(formData.password)) {
-      newErrors.password =
-        "Password must have uppercase, lowercase, numbers, special characters, and at least 8 characters.";
-    }
-
-    if (isSignUp && formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
-
     const phonePattern = /^0\d{10}$/;
-    if (isSignUp && !phonePattern.test(formData.phoneNumber)) {
-      newErrors.phoneNumber =
-        "Phone number must start with 0 and have 11 digits.";
+
+    switch (fieldName) {
+      case "email":
+        if (!emailPattern.test(value)) {
+          newErrors.email = "Enter a valid email (e.g., abc@gmail.com).";
+        }
+        break;
+
+      case "restaurantName":
+        if (value.length < 7) {
+          newErrors.restaurantName =
+            "Restaurant name must be at least 7 characters.";
+        }
+        break;
+
+      case "ownerName":
+        if (value.length < 3) {
+          newErrors.ownerName = "Owner name must be at least 3 characters.";
+        } else if (!namePattern.test(value)) {
+          newErrors.ownerName =
+            "Owner name must contain only letters and spaces (no special characters or numbers).";
+        }
+        break;
+
+      case "address":
+        if (value.length < 10) {
+          newErrors.address = "Address must be at least 10 characters.";
+        }
+        break;
+
+      case "password":
+        if (!passwordPattern.test(value)) {
+          newErrors.password =
+            "Password must have uppercase, lowercase, numbers, special characters, and at least 8 characters.";
+        }
+        break;
+
+      case "confirmPassword":
+        if (value !== formData.password) {
+          newErrors.confirmPassword = "Passwords do not match.";
+        }
+        break;
+
+      case "phoneNumber":
+        if (!phonePattern.test(value)) {
+          newErrors.phoneNumber =
+            "Phone number must start with 0 and have 11 digits.";
+        }
+        break;
+
+      default:
+        break;
     }
 
     return newErrors;
@@ -118,7 +143,7 @@ function LoginRestaurant() {
 
     e.preventDefault();
     setHasSubmitted(true); // Indicate form submission
-    const newErrors = validateForm();
+    const newErrors = validateField();
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
@@ -214,7 +239,7 @@ function LoginRestaurant() {
                   value={formData.restaurantName}
                   onChange={handleChange}
                 />
-                {hasSubmitted && errors.restaurantName && (
+                {errors.restaurantName && (
                   <span className="error">{errors.restaurantName}</span>
                 )}
               </div>
@@ -231,7 +256,7 @@ function LoginRestaurant() {
                   value={formData.ownerName}
                   onChange={handleChange}
                 />
-                {hasSubmitted && errors.ownerName && (
+                {errors.ownerName && (
                   <span className="error">{errors.ownerName}</span>
                 )}
               </div>
@@ -248,7 +273,7 @@ function LoginRestaurant() {
                   value={formData.address}
                   onChange={handleChange}
                 />
-                {hasSubmitted && errors.address && (
+                {errors.address && (
                   <span className="error">{errors.address}</span>
                 )}
               </div>
@@ -265,7 +290,7 @@ function LoginRestaurant() {
                   value={formData.phoneNumber}
                   onChange={handleChange}
                 />
-                {hasSubmitted && errors.phoneNumber && (
+                {errors.phoneNumber && (
                   <span className="error">{errors.phoneNumber}</span>
                 )}
               </div>
@@ -289,7 +314,7 @@ function LoginRestaurant() {
                 <span>{errors.backend}</span>
               </div>
             )}
-            {isSignUp && hasSubmitted && errors.email && (
+            {isSignUp && errors.email && (
               <span className="error">{errors.email}</span>
             )}
           </div>
@@ -320,7 +345,7 @@ function LoginRestaurant() {
                 {errorMessage}
               </div>
             )}
-            {isSignUp && hasSubmitted && errors.password && (
+            {isSignUp && errors.password && (
               <span className="error">{errors.password}</span>
             )}
           </div>
@@ -347,7 +372,7 @@ function LoginRestaurant() {
                   {showConfirmPassword ? "🙈" : "👁️"}
                 </button>
               </div>
-              {hasSubmitted && errors.confirmPassword && (
+              {errors.confirmPassword && (
                 <span className="error">{errors.confirmPassword}</span>
               )}
             </div>
