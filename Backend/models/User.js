@@ -1,15 +1,15 @@
+// models/User.js
 const bcrypt = require("bcrypt");
-const db = require("../services/db");
-
+const pool = require("../services/db");
 class User {
-  constructor(
+  constructor({
     email,
     password,
     restaurantName,
     ownerName,
     address,
-    phoneNumber
-  ) {
+    phoneNumber,
+  }) {
     this.email = email;
     this.password = password;
     this.restaurantName = restaurantName;
@@ -18,40 +18,32 @@ class User {
     this.phoneNumber = phoneNumber;
   }
 
+  // Method to hash the user's password before saving
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
+    try {
+      // bcrypt.hash() expects the password and the number of salt rounds as arguments
+      this.password = await bcrypt.hash(this.password, 10); // 10 is the salt rounds
+    } catch (error) {
+      console.error("Error hashing password: ", error);
+      throw error; // Ensure any errors during hashing are caught
+    }
   }
 
+  // Method to save the user to the database
   async save() {
-    const query = `
-      INSERT INTO restaurant_reg (email, password, restaurantName, ownerName, address, phoneNumber) 
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
-    const values = [
-      this.email,
-      this.password,
-      this.restaurantName,
-      this.ownerName,
-      this.address,
-      this.phoneNumber,
-    ];
-
-    const [result] = await db.execute(query, values);
-
-    // Return the generated ID
-    return result.insertId; // Assuming you're using MySQL and this is the way to get the last inserted ID
-  }
-
-  static async findByEmail(email) {
-    const [rows] = await db.execute(
-      "SELECT * FROM restaurant_reg WHERE email = ?",
-      [email]
+    const connection = await pool.getConnection();
+    await connection.query(
+      "INSERT INTO restaurant_reg (email, password, restaurantName, ownerName, address, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)",
+      [
+        this.email,
+        this.password,
+        this.restaurantName,
+        this.ownerName,
+        this.address,
+        this.phoneNumber,
+      ]
     );
-    return rows[0];
-  }
-
-  static async comparePassword(providedPassword, storedPassword) {
-    return await bcrypt.compare(providedPassword, storedPassword);
+    connection.release();
   }
 }
 

@@ -1,14 +1,17 @@
-const User = require("../models/User");
 const pool = require("../services/db");
-
+const User = require("../models/User");
 const signUp = async (req, res) => {
   const { email, password, restaurantName, ownerName, address, phoneNumber } =
     req.body;
 
+  // Check if password is provided
+  if (!password) {
+    return res.status(400).json({ error: "Password is required" });
+  }
+
   try {
     const connection = await pool.getConnection();
 
-    // Assuming User.save() saves a new restaurant to the DB
     const user = new User({
       email,
       password, // Assuming the password is hashed before saving
@@ -20,18 +23,20 @@ const signUp = async (req, res) => {
 
     await user.hashPassword(); // Hash password before saving
     await user.save(); // Save the user to the database
+    // Delete any existing test case with the same name
+    await connection.query("DELETE FROM connection_tests WHERE test_name = ?", [
+      "User Signup Test",
+    ]);
 
-    // Log the success into a test table
     await connection.query(
       "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
       ["User Signup Test", true]
     );
     connection.release();
 
-    // Respond with success
     res.status(201).json({ message: "Restaurant registered successfully!" });
   } catch (error) {
-    // Handle errors (e.g., database issues)
+    console.error(error); // Print error to understand what went wrong
     const connection = await pool.getConnection();
     await connection.query(
       "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
@@ -44,5 +49,4 @@ const signUp = async (req, res) => {
     });
   }
 };
-
 module.exports = { signUp };
