@@ -6,7 +6,7 @@ function Navbar() {
   const [visibleLinks, setVisibleLinks] = useState([]);
 
   useEffect(() => {
-    const navLinks = ["Home", "Login", "Chef", "TestCaseResult"];
+    const navLinks = ["Home", "Login", "Chef", "TestCaseResult", "FAQ"];
     let delay = 2000; // 2 seconds
 
     const showLinkWithDelay = (link, index) => {
@@ -96,6 +96,13 @@ function Navbar() {
               <li className="nav-item">
                 <Link className="nav-link" to="/testcase">
                   TestCaseResult
+                </Link>
+              </li>
+            )}
+            {visibleLinks.includes("FAQ") && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/faq">
+                  FAQ
                 </Link>
               </li>
             )}
