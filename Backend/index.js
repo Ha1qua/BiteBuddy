@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const http = require("http");
+const initSocket = require("./socketServer"); // Import the socket server setup
 
 // Initialize the Express app
 const app = express();
@@ -35,10 +37,16 @@ app.use(testcaseRoutes);
 // Start scheduled cleanup for expired sessions
 scheduleCleanup();
 
+// Create an HTTP server using Express
+const server = http.createServer(app);
+
+// Initialize Socket.io with the HTTP server
+initSocket(server);
+
 if (require.main === module) {
   // Only start the server if this file is run directly
   const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
 }
