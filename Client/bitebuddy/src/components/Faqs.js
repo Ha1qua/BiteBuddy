@@ -22,6 +22,7 @@ const Faqs = () => {
     // Listen for the answer to a question from the server
     socketInstance.on("receiveAnswer", (data) => {
       setAnswer(data);
+      console.log("Answer received from server"); // Log the received answer
     });
 
     // Cleanup the socket connection when the component unmounts
