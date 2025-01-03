@@ -12,7 +12,6 @@ const login = async (req, res) => {
     await db.query("DELETE FROM connection_tests WHERE test_name = ?", [
       "Login Attempt",
     ]);
-
     // Fetch user data from the 'restaurant_reg' table
     const [rows] = await db.query(
       "SELECT * FROM restaurant_reg WHERE email = ?",
@@ -45,13 +44,10 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: "1h",
     });
-
-    // Log successful login attempt
     await db.query(
       "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
       ["Login Attempt", true]
     );
-
     // Respond with message, token, and restaurant ID
     res.json({
       message: "Login successful!",
@@ -59,13 +55,14 @@ const login = async (req, res) => {
       restaurantId: user.id, // Assuming user.id is the restaurant ID
     });
   } catch (error) {
-    console.error(error); // Logs error to the console
     // Log failed login attempt
-    await db.query(
-      "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
-      ["Login Attempt", false]
-    );
+    console.error(error);
+    console.error(error); // Logs error to the console
     res.status(500).json({ error: "Login failed. Please try again." });
+    // await db.query(
+    //   "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
+    //   ["Login Attempt", false]
+    // );
   }
 };
 
