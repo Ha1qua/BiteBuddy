@@ -112,18 +112,30 @@ function Dashboard() {
     });
     setIsFormOpen(true);
   };
-
   const validateForm = () => {
     const errors = {};
     const dishNamePattern = /^[A-Za-z_]+$/;
     const ingredientsPattern = /^[A-Za-z\s,]+$/;
 
+    // Allow for Google-hosted image URLs (e.g., encrypted-tbn0.gstatic.com)
+    const imageUrlPattern =
+      /^(https:\/\/encrypted-tbn0\.gstatic\.com\/images\?q=tbn:.*\&s|https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg|bmp|tiff|ico)(\?.*)?)$/i;
+
+    // Validate dish name
     if (!dishNamePattern.test(newDish.dishName)) {
       errors.dishName = "Dish name must contain only letters and underscores.";
     }
+
+    // Validate ingredients
     if (!ingredientsPattern.test(newDish.ingredients)) {
       errors.ingredients =
         "Ingredients must contain only letters, spaces, and commas.";
+    }
+
+    // Validate image URL (supports Google-hosted images and common image extensions)
+    if (newDish.imageUrl && !imageUrlPattern.test(newDish.imageUrl)) {
+      errors.imageUrl =
+        "Image URL must be a valid image format, or a Google-hosted image.";
     }
 
     setErrors(errors);
@@ -237,6 +249,7 @@ function Dashboard() {
               required
             />
           </label>
+          {errors.imageUrl && <p className="error">{errors.imageUrl}</p>}
           <label>
             Restaurant ID:
             <input
