@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useHistory to handle navigation
 import "./LoginUser.css";
 
 function LoginUser() {
@@ -25,6 +26,8 @@ function LoginUser() {
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const validateNumberOfPeople = (number) =>
     Number.isInteger(Number(number)) && number > 0;
+
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleFormSubmit = (e) => {
@@ -173,6 +176,15 @@ function LoginUser() {
     }
   };
 
+  const handleEdit = () => {
+    setOrderSummary(null); // Reset order summary to edit the form again
+  };
+
+  const handleConfirm = () => {
+    // Navigate to the next page, for example, a "Confirmation" page
+    navigate("/Notification"); // This will redirect to the "confirmation" page
+  };
+
   return (
     <div className="login-user-container">
       <div className="login-user-form-container">
@@ -295,6 +307,10 @@ function LoginUser() {
             <p>
               <strong>Total for Reservation:</strong> ${orderSummary.total}
             </p>
+
+            {/* Edit and Confirm Buttons */}
+            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleConfirm}>Confirm</button>
           </div>
         )}
       </div>
