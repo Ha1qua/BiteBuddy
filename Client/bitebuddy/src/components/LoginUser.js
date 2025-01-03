@@ -11,9 +11,73 @@ function LoginUser() {
   const [specialNotes, setSpecialNotes] = useState("");
   const [orderSummary, setOrderSummary] = useState(null);
 
+  // Error states
+  const [errors, setErrors] = useState({
+    fullName: "",
+    phoneNumber: "",
+    email: "",
+    numberOfPeople: "",
+  });
+
+  // Validation functions
+  const validateFullName = (name) => /^[a-zA-Z\s]{3,}$/.test(name); // Updated validation for at least 3 letters and spaces
+  const validatePhoneNumber = (number) => /^\d{11}$/.test(number);
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+  const validateNumberOfPeople = (number) =>
+    Number.isInteger(Number(number)) && number > 0;
+
   // Handle form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // Reset errors
+    setErrors({
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      numberOfPeople: "",
+    });
+
+    let formValid = true;
+
+    // Validate fields
+    if (!validateFullName(fullName)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullName:
+          "Full Name must be at least 3 characters long and contain only alphabets and spaces.",
+      }));
+      formValid = false;
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "Phone Number should contain exactly 11 digits.",
+      }));
+      formValid = false;
+    }
+
+    if (!validateEmail(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Please enter a valid email.",
+      }));
+      formValid = false;
+    }
+
+    if (!validateNumberOfPeople(numberOfPeople)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        numberOfPeople:
+          "Number of people should be a valid integer greater than 0.",
+      }));
+      formValid = false;
+    }
+
+    if (!formValid) {
+      return;
+    }
 
     // Generate table number (for demo purposes, random between 1 and 100)
     const tableNumber = Math.floor(Math.random() * 100) + 1;
@@ -38,6 +102,77 @@ function LoginUser() {
     setOrderSummary(summary);
   };
 
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    setFullName(value);
+
+    // Real-time validation
+    if (!validateFullName(value)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullName:
+          "Full Name must be at least 3 characters long and contain only alphabets and spaces.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullName: "",
+      }));
+    }
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value;
+    setPhoneNumber(value);
+
+    if (!validatePhoneNumber(value)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "Phone Number should contain exactly 11 digits.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "",
+      }));
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    if (!validateEmail(value)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Please enter a valid email.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "",
+      }));
+    }
+  };
+
+  const handleNumberOfPeopleChange = (e) => {
+    const value = e.target.value;
+    setNumberOfPeople(value);
+
+    if (!validateNumberOfPeople(value)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        numberOfPeople:
+          "Number of people should be a valid integer greater than 0.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        numberOfPeople: "",
+      }));
+    }
+  };
+
   return (
     <div className="login-user-container">
       <div className="login-user-form-container">
@@ -51,9 +186,10 @@ function LoginUser() {
               <input
                 type="text"
                 value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                onChange={handleNameChange}
                 required
               />
+              {errors.fullName && <p className="error">{errors.fullName}</p>}
             </div>
 
             <div className="form-field">
@@ -61,9 +197,12 @@ function LoginUser() {
               <input
                 type="text"
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={handlePhoneNumberChange}
                 required
               />
+              {errors.phoneNumber && (
+                <p className="error">{errors.phoneNumber}</p>
+              )}
             </div>
 
             <div className="form-field">
@@ -71,9 +210,10 @@ function LoginUser() {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
                 required
               />
+              {errors.email && <p className="error">{errors.email}</p>}
             </div>
 
             <div className="form-field">
@@ -102,10 +242,13 @@ function LoginUser() {
               <input
                 type="number"
                 value={numberOfPeople}
-                onChange={(e) => setNumberOfPeople(e.target.value)}
+                onChange={handleNumberOfPeopleChange}
                 min="1"
                 required
               />
+              {errors.numberOfPeople && (
+                <p className="error">{errors.numberOfPeople}</p>
+              )}
             </div>
 
             {/* Special Notes Field */}
