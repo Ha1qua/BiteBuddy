@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useHistory to handle navigation
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./LoginUser.css";
 
 function LoginUser() {
@@ -21,7 +22,7 @@ function LoginUser() {
   });
 
   // Validation functions
-  const validateFullName = (name) => /^[a-zA-Z\s]{3,}$/.test(name); // Updated validation for at least 3 letters and spaces
+  const validateFullName = (name) => /^[a-zA-Z\s]{3,}$/.test(name);
   const validatePhoneNumber = (number) => /^\d{11}$/.test(number);
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
   const validateNumberOfPeople = (number) =>
@@ -59,6 +60,11 @@ function LoginUser() {
         phoneNumber: "Phone Number should contain exactly 11 digits.",
       }));
       formValid = false;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        phoneNumber: "", // Clear the error message if valid
+      }));
     }
 
     if (!validateEmail(email)) {
@@ -105,84 +111,31 @@ function LoginUser() {
     setOrderSummary(summary);
   };
 
-  const handleNameChange = (e) => {
-    const value = e.target.value;
-    setFullName(value);
+  // Handle confirm action
+  const handleConfirm = async () => {
+    // Send the API request when confirming the reservation
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/reservations",
+        orderSummary
+      );
 
-    // Real-time validation
-    if (!validateFullName(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        fullName:
-          "Full Name must be at least 3 characters long and contain only alphabets and spaces.",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        fullName: "",
-      }));
+      // Handle success
+      alert("Reservation created successfully!");
+      console.log(response.data); // Log response for debugging
+
+      // Navigate to the notification or confirmation page
+      navigate("/Notification");
+    } catch (error) {
+      // Handle error
+      console.error("Error creating reservation:", error);
+      alert("There was an error creating the reservation.");
     }
   };
 
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    setPhoneNumber(value);
-
-    if (!validatePhoneNumber(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        phoneNumber: "Phone Number should contain exactly 11 digits.",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        phoneNumber: "",
-      }));
-    }
-  };
-
-  const handleEmailChange = (e) => {
-    const value = e.target.value;
-    setEmail(value);
-
-    if (!validateEmail(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Please enter a valid email.",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "",
-      }));
-    }
-  };
-
-  const handleNumberOfPeopleChange = (e) => {
-    const value = e.target.value;
-    setNumberOfPeople(value);
-
-    if (!validateNumberOfPeople(value)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        numberOfPeople:
-          "Number of people should be a valid integer greater than 0.",
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        numberOfPeople: "",
-      }));
-    }
-  };
-
+  // Handle edit action
   const handleEdit = () => {
     setOrderSummary(null); // Reset order summary to edit the form again
-  };
-
-  const handleConfirm = () => {
-    // Navigate to the next page, for example, a "Confirmation" page
-    navigate("/Notification"); // This will redirect to the "confirmation" page
   };
 
   return (
@@ -198,7 +151,15 @@ function LoginUser() {
               <input
                 type="text"
                 value={fullName}
-                onChange={handleNameChange}
+                onChange={(e) => {
+                  setFullName(e.target.value);
+                  if (errors.fullName) {
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      fullName: "",
+                    }));
+                  }
+                }}
                 required
               />
               {errors.fullName && <p className="error">{errors.fullName}</p>}
@@ -209,7 +170,15 @@ function LoginUser() {
               <input
                 type="text"
                 value={phoneNumber}
-                onChange={handlePhoneNumberChange}
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                  if (errors.phoneNumber) {
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      phoneNumber: "",
+                    }));
+                  }
+                }}
                 required
               />
               {errors.phoneNumber && (
@@ -222,7 +191,15 @@ function LoginUser() {
               <input
                 type="email"
                 value={email}
-                onChange={handleEmailChange}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) {
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      email: "",
+                    }));
+                  }
+                }}
                 required
               />
               {errors.email && <p className="error">{errors.email}</p>}
@@ -254,7 +231,15 @@ function LoginUser() {
               <input
                 type="number"
                 value={numberOfPeople}
-                onChange={handleNumberOfPeopleChange}
+                onChange={(e) => {
+                  setNumberOfPeople(e.target.value);
+                  if (errors.numberOfPeople) {
+                    setErrors((prevErrors) => ({
+                      ...prevErrors,
+                      numberOfPeople: "",
+                    }));
+                  }
+                }}
                 min="1"
                 required
               />

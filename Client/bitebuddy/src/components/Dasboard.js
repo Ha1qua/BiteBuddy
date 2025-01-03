@@ -119,7 +119,7 @@ function Dashboard() {
 
     // Allow for Google-hosted image URLs (e.g., encrypted-tbn0.gstatic.com)
     const imageUrlPattern =
-      /^(https:\/\/encrypted-tbn0\.gstatic\.com\/images\?q=tbn:.*\&s|https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg|bmp|tiff|ico)(\?.*)?)$/i;
+      /^(https:\/\/encrypted-tbn0\.gstatic\.com\/images\?q=tbn:.*&s|https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg|bmp|tiff|ico)(\?.*)?)$/i;
 
     // Validate dish name
     if (!dishNamePattern.test(newDish.dishName)) {

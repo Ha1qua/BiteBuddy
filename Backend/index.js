@@ -20,6 +20,7 @@ const chefRoutes = require("./routes/chefRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const chefloginRoutes = require("./routes/chefloginRoutes");
 const testcaseRoutes = require("./routes/testcaseRoutes");
+const reservationRoutes = require("./routes/reservationRoutes");
 
 // Import controllers
 
@@ -32,6 +33,7 @@ app.use("/api/chef", chefRoutes);
 app.use("/api", reviewRoutes);
 app.use("/api", chefloginRoutes);
 app.use(testcaseRoutes);
+app.use("/api", reservationRoutes);
 
 // Start scheduled cleanup for expired sessions
 // scheduleCleanup();
