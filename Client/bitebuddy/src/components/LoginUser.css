@@ -1,0 +1,125 @@
+/* General Styles for LoginUser */
+.login-user-container {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  margin-top: 47px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Reservation Form Container */
+.login-user-form-container {
+  background-color: #ecfaf6;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(33, 33, 33, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 50px;
+}
+
+/* Heading */
+.login-user-form-container h1 {
+  text-align: center;
+  color: #000000;
+}
+
+.login-user-order-summary h2 {
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+/* Form Elements */
+.login-user-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field {
+  display: block; /* Ensure label is on one line, input on next */
+  margin-bottom: 15px;
+}
+
+.login-user-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login-user-form input,
+.login-user-form textarea {
+  padding: 8px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.login-user-form input[type="number"] {
+  width: 100%; /* Full width for number input */
+}
+
+.login-user-form input[type="text"],
+.login-user-form input[type="email"],
+.login-user-form input[type="date"],
+.login-user-form input[type="time"] {
+  width: 100%; /* Full width for all input fields */
+}
+
+.login-user-form button {
+  padding: 10px 20px; /* Add padding for better button size */
+  background-color: #b3e0e0;
+  border: 2px solid #d35400;
+  font-weight: bold;
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  width: 165px;
+  align-self: center;
+}
+
+.login-user-form button:hover {
+  background-color: #d35400; /* Darker shade on hover */
+  color: white;
+  transform: translateY(-4px);
+}
+
+/* Order Summary */
+.login-user-order-summary {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-user-order-summary p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.login-user-order-summary strong {
+  font-weight: bold;
+}
+
+.login-user-order-summary p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Styles for LoginUser */
+@media (max-width: 768px) {
+  .login-user-form-container {
+    padding: 15px;
+  }
+
+  .login-user-form button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .login-user-form input,
+  .login-user-form textarea {
+    width: 100%; /* Full width for mobile */
+  }
+}
