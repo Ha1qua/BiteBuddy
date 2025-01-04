@@ -120,7 +120,7 @@ function LoginUser() {
       );
 
       // Handle success
-      alert("Reservation created successfully!");
+      // alert("Reservation created successfully!");
       console.log(response.data); // Log response for debugging
 
       // Navigate to the notification or confirmation page
@@ -254,6 +254,7 @@ function LoginUser() {
                 type="text"
                 value={specialNotes}
                 onChange={(e) => setSpecialNotes(e.target.value)}
+                placeholder="e.g Please provide 2 baby chairs" // Placeholder text
               />
             </div>
 
