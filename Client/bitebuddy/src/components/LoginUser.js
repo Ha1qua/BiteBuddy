@@ -111,25 +111,26 @@ function LoginUser() {
   };
 
   // Handle confirm action
-  const handleConfirm = async () => {
-    // Send the API request when confirming the reservation
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/reservations",
-        orderSummary
-      );
+  const handleConfirm = () => {
+    // Send the API request using axios, which returns a Promise
+    axios
+      .post("http://localhost:5000/api/reservations", orderSummary)
+      .then((response) => {
+        // Log the success message
+        console.log("Reservation created successfully:", response.data);
 
-      // Handle success
-      // alert("Reservation created successfully!");
-      console.log(response.data); // Log response for debugging
-
-      // Navigate to the notification or confirmation page
-      navigate("/Notification");
-    } catch (error) {
-      // Handle error
-      console.error("Error creating reservation:", error);
-      alert("There was an error creating the reservation.");
-    }
+        // Simulate a delay using setTimeout (like thread sleep)
+        return new Promise((resolve) => setTimeout(resolve, 1000)); // 1-second delay
+      })
+      .then(() => {
+        // Navigate to the notification page after the delay
+        navigate("/Notification");
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error creating reservation:", error);
+        alert("There was an issue creating the reservation. Please try again.");
+      });
   };
 
   // Handle edit action
