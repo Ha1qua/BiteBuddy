@@ -1,8 +1,10 @@
 const dishModel = require("../models/dishModel");
+const pool = require("../services/db");
 
 // Controller to add a new dish
 const createDish = async (req, res) => {
   try {
+    const connection = await pool.getConnection();
     const { dishName, price, ingredients, imageUrl, restaurant_id } = req.body;
 
     if (!dishName || !price || !ingredients || !imageUrl || !restaurant_id) {
@@ -16,10 +18,22 @@ const createDish = async (req, res) => {
       image: imageUrl,
       restaurant_id,
     });
-
+    // Delete any existing test case with the same name
+    await connection.query("DELETE FROM connection_tests WHERE test_name = ?", [
+      "Dish add",
+    ]);
+    await connection.query(
+      "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
+      ["Dish add", true]
+    );
     res.status(201).json({ id: dishId, message: "Dish added successfully" });
   } catch (error) {
     console.error("Error adding dish:", error);
+    // Insert a failure log into connection_tests table if an error occurs
+    await connection.query(
+      "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
+      ["dish add", false]
+    );
     res.status(500).send("Error adding dish");
   }
 };

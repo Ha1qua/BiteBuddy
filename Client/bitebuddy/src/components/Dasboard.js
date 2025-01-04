@@ -202,6 +202,8 @@ function Dashboard() {
           {isUpdateMode ? "Cancel Update" : "Update Menu"}
         </button>
         <button onClick={handleUserLogin}>Login for User</button>
+        {/* Insights Button */}
+        <button onClick={handleGoToInsights}>View Insights</button>
       </div>
 
       {isFormOpen && (
