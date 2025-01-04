@@ -12,7 +12,7 @@ const initSocket = (server) => {
 
   // Listen for client connection
   io.on("connection", (socket) => {
-    console.log("message received from client");
+    console.log("client connected");
 
     // Emit the list of questions when the client connects
     const questions = [
@@ -33,6 +33,7 @@ const initSocket = (server) => {
 
     // Listen for request for a specific answer
     socket.on("getAnswer", (question) => {
+      console.log(`Client requested an answer for the question`);
       const answers = {
         "How do I place an order?":
           "You can place an order by selecting your desired items, adding them to your cart, and proceeding to checkout.",
