@@ -107,6 +107,27 @@
   margin-bottom: 0;
 }
 
+.b {
+  padding: 6px 12px; /* Reduced padding for smaller height and width */
+  background-color: #b3e0e0;
+  border: 2px solid #d35400;
+  font-weight: bold;
+  border-radius: 8px; /* Slightly smaller rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  width: 90px; /* Reduced width for a smaller button */
+  align-self: center;
+  font-size: 14px; /* Smaller font size for a more compact button */
+  margin-left: 115px;
+}
+
+/* Hover effect for all buttons */
+.b:hover {
+  background-color: #d35400; /* Darker shade on hover */
+  color: white;
+  transform: translateY(-4px);
+}
+
 /* Responsive Styles for LoginUser */
 @media (max-width: 768px) {
   .login-user-form-container {

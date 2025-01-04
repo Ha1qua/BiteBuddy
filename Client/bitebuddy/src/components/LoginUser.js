@@ -103,7 +103,6 @@ function LoginUser() {
       reservationTime,
       numberOfPeople,
       specialNotes,
-      tableNumber,
       total,
     };
 
@@ -287,15 +286,16 @@ function LoginUser() {
               {orderSummary.specialNotes || "None"}
             </p>
             <p>
-              <strong>Table Number:</strong> {orderSummary.tableNumber}
-            </p>
-            <p>
               <strong>Total for Reservation:</strong> ${orderSummary.total}
             </p>
 
             {/* Edit and Confirm Buttons */}
-            <button onClick={handleEdit}>Edit</button>
-            <button onClick={handleConfirm}>Confirm</button>
+            <button className="b" onClick={handleEdit}>
+              Edit
+            </button>
+            <button className="b" onClick={handleConfirm}>
+              Confirm
+            </button>
           </div>
         )}
       </div>
