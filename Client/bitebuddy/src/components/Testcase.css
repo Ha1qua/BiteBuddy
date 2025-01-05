@@ -1,0 +1,60 @@
+/* Testcase.css */
+.testcase-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.testcase-heading {
+  text-align: center;
+  color: #000000;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.testcase-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.testcase-table thead {
+  background-color: #c0e0e0;
+  color: #000000;
+}
+
+.testcase-table th,
+.testcase-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #d35400;
+}
+
+.testcase-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.testcase-table tr:hover {
+  background-color: #eac4ab;
+}
+
+.testcase-table th {
+  font-weight: bold;
+}
+
+.testcase-table td {
+  color: #000000;
+}
+
+.testcase-result-passed {
+  color: rgb(43, 219, 34) !important;
+  font-weight: bold;
+}
+
+.testcase-result-failed {
+  color: red !important;
+  font-weight: bold;
+}
