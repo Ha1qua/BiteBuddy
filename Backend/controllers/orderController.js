@@ -6,6 +6,9 @@ const saveOrder = async (req, res) => {
   const { restaurantId, tableNumber, cartItems, totalPrice } = req.body;
 
   try {
+    await db.query("DELETE FROM connection_tests WHERE test_name = ?", [
+      "Order confirmed",
+    ]);
     // Step 1: Check if the table number is already taken by the same restaurant
     const [existingOrder] = await db.execute(
       `SELECT * FROM orders WHERE restaurant_id = ? AND table_number = ?`,
@@ -14,6 +17,10 @@ const saveOrder = async (req, res) => {
 
     if (existingOrder.length > 0) {
       // If an order already exists for this restaurant and table number, send an error
+      await db.execute(
+        `INSERT INTO connection_tests (test_name, result) VALUES (?, ?)`,
+        ["Order confirmed", false]
+      );
       return res.status(400).send({
         message:
           "This table number is already in use by this restaurant. Please choose another table.",
@@ -57,9 +64,20 @@ const saveOrder = async (req, res) => {
       [orderId, restaurantId, tableNumber, totalPrice]
     );
 
+    // Step 6: Log the successful order confirmation into the connection_tests table
+    await db.execute(
+      `INSERT INTO connection_tests (test_name, result) VALUES (?, ?)`,
+      ["Order confirmed", true]
+    );
+
     res.status(200).send({ message: "Order saved successfully" });
   } catch (error) {
     console.error("Error saving order:", error);
+    // If there's an error, insert the test result as false into connection_tests
+    await db.execute(
+      `INSERT INTO connection_tests (test_name, result) VALUES (?, ?)`,
+      ["Order confirmed", false]
+    );
     res.status(500).send({
       message: "Failed to save order",
       error: "Failed to save order details in the database.",
