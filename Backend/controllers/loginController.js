@@ -64,10 +64,10 @@ const login = async (req, res) => {
   } catch (error) {
     // Log failed login attempt due to error
     console.error("Error during login:", error);
-    await db.query(
-      "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
-      ["Login Attempt", false]
-    );
+    // await db.query(
+    //   "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
+    //   ["Login Attempt", false]
+    // );
     res.status(500).json({ error: "Login failed. Please try again." });
   }
 };
