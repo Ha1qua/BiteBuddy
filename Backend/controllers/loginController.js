@@ -12,6 +12,7 @@ const login = async (req, res) => {
     await db.query("DELETE FROM connection_tests WHERE test_name = ?", [
       "Login Attempt",
     ]);
+
     // Fetch user data from the 'restaurant_reg' table
     const [rows] = await db.query(
       "SELECT * FROM restaurant_reg WHERE email = ?",
@@ -20,6 +21,7 @@ const login = async (req, res) => {
 
     if (rows.length === 0) {
       // Log failed login attempt
+      console.log("User not found, logging failed attempt.");
       await db.query(
         "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
         ["Login Attempt", false]
@@ -33,6 +35,7 @@ const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       // Log failed login attempt
+      console.log("Invalid credentials, logging failed attempt.");
       await db.query(
         "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
         ["Login Attempt", false]
@@ -44,10 +47,14 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: "1h",
     });
+
+    // Log successful login attempt
+    console.log("Login successful, logging successful attempt.");
     await db.query(
       "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
       ["Login Attempt", true]
     );
+
     // Respond with message, token, and restaurant ID
     res.json({
       message: "Login successful!",
@@ -55,14 +62,13 @@ const login = async (req, res) => {
       restaurantId: user.id, // Assuming user.id is the restaurant ID
     });
   } catch (error) {
-    // Log failed login attempt
-    console.error(error);
-    console.error(error); // Logs error to the console
+    // Log failed login attempt due to error
+    console.error("Error during login:", error);
+    await db.query(
+      "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
+      ["Login Attempt", false]
+    );
     res.status(500).json({ error: "Login failed. Please try again." });
-    // await db.query(
-    //   "INSERT INTO connection_tests (test_name, result) VALUES (?, ?)",
-    //   ["Login Attempt", false]
-    // );
   }
 };
 
