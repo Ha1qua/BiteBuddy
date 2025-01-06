@@ -10,6 +10,10 @@ const signUp = async (req, res) => {
   }
 
   try {
+    await pool.query("DELETE FROM connection_tests WHERE test_name = ?", [
+      "User Signup Test",
+    ]);
+
     const connection = await pool.getConnection();
 
     const user = new User({
