@@ -24,7 +24,7 @@ function RestaurantUser() {
   const fetchDishes = async (restaurantId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dishes/${restaurantId}`
+        `https://bitebuddy-3.onrender.com/dishes/${restaurantId}`
       );
       setDishList(response.data);
     } catch (error) {
@@ -127,7 +127,7 @@ function RestaurantUser() {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/orders/saveOrder",
+        "https://bitebuddy-3.onrender.com/api/orders/saveOrder",
         orderData
       );
 

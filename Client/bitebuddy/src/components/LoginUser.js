@@ -114,7 +114,7 @@ function LoginUser() {
   const handleConfirm = () => {
     // Send the API request using axios, which returns a Promise
     axios
-      .post("http://localhost:5000/api/reservations", orderSummary)
+      .post("https://bitebuddy-3.onrender.com/api/reservations", orderSummary)
       .then((response) => {
         // Log the success message
         console.log("Reservation created successfully:", response.data);

@@ -52,7 +52,7 @@ function Review() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/food-reviews", // Your API endpoint
+        "https://bitebuddy-3.onrender.com/api/food-reviews", // Your API endpoint
         { reviews, restaurantId } // Include restaurantId here
       );
 

@@ -22,7 +22,7 @@ const Chef = () => {
   const verifyRestaurantId = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/verifyRestaurant",
+        "https://bitebuddy-3.onrender.com/api/verifyRestaurant",
         { restaurantId }
       );
       if (response.data.success) {
@@ -53,7 +53,7 @@ const Chef = () => {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/chef/orders?restaurantId=${restaurantId}`
+        `https://bitebuddy-3.onrender.com/api/chef/orders?restaurantId=${restaurantId}`
       );
       setOrders(response.data);
     } catch (err) {
