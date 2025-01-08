@@ -43,7 +43,7 @@ function Dashboard() {
   const fetchDishes = async (restaurantId) => {
     try {
       const response = await axios.get(
-        `https://bitebuddy-3.onrender.com/dishes/${restaurantId}`
+        `http://localhost:5000/dishes/${restaurantId}`
       );
       setDishList(response.data);
     } catch (error) {
@@ -53,9 +53,7 @@ function Dashboard() {
 
   const fetchRestaurantName = async (id) => {
     try {
-      const response = await axios.get(
-        `https://bitebuddy-3.onrender.com/dishes/${id}`
-      );
+      const response = await axios.get(`http://localhost:5000/dishes/${id}`);
       const data = response.data;
       setRestaurantName(data.name);
     } catch (error) {
@@ -88,7 +86,7 @@ function Dashboard() {
     try {
       await Promise.all(
         selectedDishes.map((dishId) =>
-          axios.delete(`https://bitebuddy-3.onrender.com/dishes/${dishId}`)
+          axios.delete(`http://localhost:5000/dishes/${dishId}`)
         )
       );
       setSelectedDishes([]);
@@ -152,11 +150,11 @@ function Dashboard() {
     try {
       if (dishToUpdate) {
         await axios.put(
-          `https://bitebuddy-3.onrender.com/dishes/${dishToUpdate.id}`,
+          `http://localhost:5000/dishes/${dishToUpdate.id}`,
           newDish
         );
       } else {
-        await axios.post("https://bitebuddy-3.onrender.com/dishes", newDish);
+        await axios.post("http://localhost:5000/dishes", newDish);
       }
 
       setNewDish({

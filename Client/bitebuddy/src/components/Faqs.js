@@ -10,7 +10,7 @@ const Faqs = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socketInstance = io("https://bitebuddy-3.onrender.com");
+    const socketInstance = io("http://localhost:5000");
     setSocket(socketInstance);
 
     // Listen for the list of questions from the server

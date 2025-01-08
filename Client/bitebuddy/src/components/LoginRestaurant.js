@@ -123,7 +123,7 @@ function LoginRestaurant() {
     try {
       const endpoint = isSignUp ? "/auth/signup" : "/auth/login";
       const response = await axios.post(
-        `https://bitebuddy-3.onrender.com${endpoint}`,
+        `http://localhost:5000${endpoint}`,
         formData
       );
 

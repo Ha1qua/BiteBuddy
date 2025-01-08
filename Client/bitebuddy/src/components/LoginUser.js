@@ -114,7 +114,7 @@ function LoginUser() {
   const handleConfirm = () => {
     // Send the API request using axios, which returns a Promise
     axios
-      .post("https://bitebuddy-3.onrender.com/api/reservations", orderSummary)
+      .post("http://localhost:5000/api/reservations", orderSummary)
       .then((response) => {
         // Log the success message
         console.log("Reservation created successfully:", response.data);
@@ -288,7 +288,7 @@ function LoginUser() {
               {orderSummary.specialNotes || "None"}
             </p>
             <p>
-              <strong>Total for Reservation:</strong> ${orderSummary.total}
+              <strong>Total for Reservation:</strong> Rs {orderSummary.total}
             </p>
 
             {/* Edit and Confirm Buttons */}

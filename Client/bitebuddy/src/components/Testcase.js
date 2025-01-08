@@ -7,7 +7,7 @@ const Testcase = () => {
 
   useEffect(() => {
     axios
-      .get("https://bitebuddy-3.onrender.com/api/testcases")
+      .get("http://localhost:5000/api/testcases")
       .then((response) => {
         setTestCases(response.data);
       })
